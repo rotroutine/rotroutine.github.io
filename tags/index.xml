@@ -6,6 +6,15 @@
         <description>Recent content in Tags on 鹅掌草の森</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <copyright>Kotori🕊️</copyright><atom:link href="https://kotoriforest.us.kg/tags/index.xml" rel="self" type="application/rss+xml" />
+        <copyright>Kotori🕊️</copyright>
+        <lastBuildDate>Mon, 14 Oct 2024 21:50:33 +0800</lastBuildDate><atom:link href="https://kotoriforest.us.kg/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>JavaSE</title>
+        <link>https://kotoriforest.us.kg/tags/javase/</link>
+        <pubDate>Mon, 14 Oct 2024 21:50:33 +0800</pubDate>
+        
+        <guid>https://kotoriforest.us.kg/tags/javase/</guid>
+        <description>&lt;img src="https://kotoriforest.us.kg/tags/javase/cover.png" alt="Featured image of post JavaSE" /&gt;</description>
+        </item>
+        
     </channel>
 </rss>

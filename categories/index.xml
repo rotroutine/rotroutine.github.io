@@ -6,13 +6,14 @@
         <description>Recent content in Categories on 鹅掌草の森</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <copyright>Kotori🕊️</copyright><atom:link href="https://kotoriforest.us.kg/categories/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Test</title>
-        <link>https://kotoriforest.us.kg/categories/test/</link>
-        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        <copyright>Kotori🕊️</copyright>
+        <lastBuildDate>Mon, 14 Oct 2024 21:50:33 +0800</lastBuildDate><atom:link href="https://kotoriforest.us.kg/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>编程知识</title>
+        <link>https://kotoriforest.us.kg/categories/%E7%BC%96%E7%A8%8B%E7%9F%A5%E8%AF%86/</link>
+        <pubDate>Mon, 14 Oct 2024 21:50:33 +0800</pubDate>
         
-        <guid>https://kotoriforest.us.kg/categories/test/</guid>
-        <description>&lt;img src="https://kotoriforest.us.kg/categories/test/hutomo-abrianto-l2jk-uxb1BY-unsplash.jpg" alt="Featured image of post Test" /&gt;</description>
+        <guid>https://kotoriforest.us.kg/categories/%E7%BC%96%E7%A8%8B%E7%9F%A5%E8%AF%86/</guid>
+        <description>&lt;img src="https://kotoriforest.us.kg/categories/%E7%BC%96%E7%A8%8B%E7%9F%A5%E8%AF%86/cover.png" alt="Featured image of post 编程知识" /&gt;</description>
         </item>
         
     </channel>
