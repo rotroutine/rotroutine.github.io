@@ -1,0 +1,2206 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="简单介绍一下Java中的枚举类型和注解类型">
+<title>简单介绍枚举和注解</title>
+
+<link rel='canonical' href='https://kotoriforest.us.kg/p/1016-%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E6%9E%9A%E4%B8%BE%E5%92%8C%E6%B3%A8%E8%A7%A3/'>
+
+<link rel="stylesheet" href="/scss/style.min.45150963a8bc779bc42cd53d7096be786c88864e3a18e5b72ef6ebbbe5d02a76.css"><meta property='og:title' content="简单介绍枚举和注解">
+<meta property='og:description' content="简单介绍一下Java中的枚举类型和注解类型">
+<meta property='og:url' content='https://kotoriforest.us.kg/p/1016-%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E6%9E%9A%E4%B8%BE%E5%92%8C%E6%B3%A8%E8%A7%A3/'>
+<meta property='og:site_name' content='鹅掌草の森'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='JavaSE' /><meta property='article:published_time' content='2024-10-16T00:48:39&#43;08:00'/><meta property='article:modified_time' content='2024-10-16T00:48:39&#43;08:00'/><meta property='og:image' content='https://kotoriforest.us.kg/p/1016-%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E6%9E%9A%E4%B8%BE%E5%92%8C%E6%B3%A8%E8%A7%A3/cover.png' />
+<meta name="twitter:title" content="简单介绍枚举和注解">
+<meta name="twitter:description" content="简单介绍一下Java中的枚举类型和注解类型"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://kotoriforest.us.kg/p/1016-%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E6%9E%9A%E4%B8%BE%E5%92%8C%E6%B3%A8%E8%A7%A3/cover.png' />
+    <link rel="shortcut icon" href="/favicon.png" />
+<style>
+    :root {
+         
+        --sys-font-family: -apple-system, "PingFang SC", Georgia, 'Nimbus Roman No9 L', 'Hiragino Sans GB', 'Noto Serif SC', 'Microsoft Yahei', 'WenQuanYi Micro Hei', 'ST Heiti', sans-serif;
+        --code-font-family: "JetBrainsMono Regular", Menlo, Monaco, Consolas, "Courier New";
+        --article-font-family: -apple-system, "PingFang SC", var(--base-font-family);
+    }
+</style>
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended">
+
+
+        <div id="article-toolbar" style="position: sticky;top: 5px;z-index: 1000;">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>返回</span>
+            </a>
+        </div>
+    
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#枚举">枚举</a>
+      <ol>
+        <li><a href="#概述">概述</a></li>
+        <li><a href="#枚举类的使用">枚举类的使用</a>
+          <ol>
+            <li><a href="#定义枚举类">定义枚举类</a></li>
+          </ol>
+        </li>
+        <li><a href="#enum中的常用方法">enum中的常用方法</a></li>
+        <li><a href="#实现接口的枚举类">实现接口的枚举类</a></li>
+        <li><a href="#使用枚举来实现单例模式">使用枚举来实现单例模式</a></li>
+      </ol>
+    </li>
+    <li><a href="#注解">注解</a>
+      <ol>
+        <li><a href="#概述-1">概述</a>
+          <ol>
+            <li><a href="#注解与注释的区别">注解与注释的区别</a></li>
+            <li><a href="#注解的重要性">注解的重要性</a></li>
+          </ol>
+        </li>
+        <li><a href="#常见注解的作用">常见注解的作用</a>
+          <ol>
+            <li><a href="#生成文档相关的注解">生成文档相关的注解</a></li>
+            <li><a href="#在编译时进行格式检查--jdk-内置的三个基本注解">在编译时进行格式检查 ( JDK 内置的三个基本注解)</a></li>
+            <li><a href="#跟踪代码依赖性实现替代配置文件功能">跟踪代码依赖性，实现替代配置文件功能</a></li>
+          </ol>
+        </li>
+        <li><a href="#三个最基本的注解">三个最基本的注解</a>
+          <ol>
+            <li><a href="#override">@Override</a></li>
+            <li><a href="#deprecated">@Deprecated</a></li>
+            <li><a href="#suppresswarnings">@SuppressWarnings</a></li>
+          </ol>
+        </li>
+        <li><a href="#元注解">元注解</a></li>
+        <li><a href="#自定义注解的使用">自定义注解的使用</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+
+
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/1016-%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E6%9E%9A%E4%B8%BE%E5%92%8C%E6%B3%A8%E8%A7%A3/">
+                <img src="/p/1016-%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E6%9E%9A%E4%B8%BE%E5%92%8C%E6%B3%A8%E8%A7%A3/cover_hu9986327716040043735.png"
+                        srcset="/p/1016-%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E6%9E%9A%E4%B8%BE%E5%92%8C%E6%B3%A8%E8%A7%A3/cover_hu9986327716040043735.png 800w, /p/1016-%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E6%9E%9A%E4%B8%BE%E5%92%8C%E6%B3%A8%E8%A7%A3/cover_hu4696964112264131424.png 1600w"
+                        width="800" 
+                        height="450" 
+                        loading="lazy"
+                        alt="Featured image of post 简单介绍枚举和注解" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E7%BC%96%E7%A8%8B%E7%9F%A5%E8%AF%86/" style="background-color: #2a9d8f; color: #fff;">
+                编程知识
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/1016-%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E6%9E%9A%E4%B8%BE%E5%92%8C%E6%B3%A8%E8%A7%A3/">简单介绍枚举和注解</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            简单介绍一下Java中的枚举类型和注解类型
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2024-10-16</time>
+            </div>
+        
+    
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-words">
+                    
+                    约29分钟，共6445字
+                </time>
+            </div>
+        
+    
+        <div>
+            <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1727968664826" class="icon" viewBox="0 0 1024 1024" fill="currentColor" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9666" width="24" height="24" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M512.048 736a224 224 0 1 1 0-448 224 224 0 0 1 0 448z m0-64a160 160 0 1 0 0-320 160 160 0 0 0 0 320z m0 192c-188.8 0-357.824-112.768-506.56-334.144a32 32 0 0 1 0-35.712C154.288 272.64 323.248 160 512.048 160s357.824 112.704 506.56 334.08a32 32 0 0 1 0 35.776c-148.736 221.44-317.76 334.08-506.56 334.08z m0-64c159.808 0 306.688-94.784 441.216-288C818.736 318.72 671.856 224 512.048 224S205.36 318.784 70.832 512C205.36 705.216 352.24 800 512.048 800z" fill="#767676" p-id="9667"></path></svg>
+            <time class="article-pageview">
+                <span class="waline-pageview-count" data-path="/p/1016-%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E6%9E%9A%E4%B8%BE%E5%92%8C%E6%B3%A8%E8%A7%A3/">0</span> 次浏览
+            </time>
+        </div>
+    
+        <div>
+            <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1727968529297" class="icon" viewBox="0 0 1024 1024" fill="currentColor" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8132" width="24" height="24" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M938.666667 504.533333A128 128 0 0 0 810.666667 384v-135.466667A128 128 0 0 0 682.666667 128H205.866667A128 128 0 0 0 85.333333 256v339.626667a128 128 0 0 0 128 120.32v69.333333a53.333333 53.333333 0 0 0 85.333334 37.333333l79.36-59.52 5.973333 4.906667a128 128 0 0 0 85.333333 32.426667h155.306667l98.56 82.346666 4.053333 2.986667A53.333333 53.333333 0 0 0 810.666667 842.666667v-41.386667h7.466666a128 128 0 0 0 120.533334-128v-168.746667z m-640 211.413334v-21.333334a64 64 0 0 0-64-64h-21.333334a42.666667 42.666667 0 0 1-42.666666-42.666666V256a42.666667 42.666667 0 0 1 42.666666-42.666667h469.333334a42.666667 42.666667 0 0 1 42.666666 42.666667v128H469.333333a128 128 0 0 0-128 128V683.733333zM853.333333 533.333333v139.946667a42.666667 42.666667 0 0 1-42.666666 42.666667h-21.333334a64 64 0 0 0-64 58.453333l-46.293333-38.613333a85.333333 85.333333 0 0 0-54.613333-19.84H469.333333a42.666667 42.666667 0 0 1-42.666666-42.666667V512a42.666667 42.666667 0 0 1 42.666666-42.666667h341.333334a42.666667 42.666667 0 0 1 42.666666 42.666667v21.333333z" p-id="8133" fill="#767676"></path></svg>
+            <time class="article-comment">
+                <span class="waline-comment-count" data-path="/p/1016-%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E6%9E%9A%E4%B8%BE%E5%92%8C%E6%B3%A8%E8%A7%A3/">0</span> 条评论
+            </time>
+        </div>
+    </footer>
+
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+<section class="toc toc--inline">
+    <h2 class="">目录</h2>
+    <div class="" >
+        <nav id="TableOfContents">
+  <ol>
+    <li><a href="#枚举">枚举</a>
+      <ol>
+        <li><a href="#概述">概述</a></li>
+        <li><a href="#枚举类的使用">枚举类的使用</a>
+          <ol>
+            <li><a href="#定义枚举类">定义枚举类</a></li>
+          </ol>
+        </li>
+        <li><a href="#enum中的常用方法">enum中的常用方法</a></li>
+        <li><a href="#实现接口的枚举类">实现接口的枚举类</a></li>
+        <li><a href="#使用枚举来实现单例模式">使用枚举来实现单例模式</a></li>
+      </ol>
+    </li>
+    <li><a href="#注解">注解</a>
+      <ol>
+        <li><a href="#概述-1">概述</a>
+          <ol>
+            <li><a href="#注解与注释的区别">注解与注释的区别</a></li>
+            <li><a href="#注解的重要性">注解的重要性</a></li>
+          </ol>
+        </li>
+        <li><a href="#常见注解的作用">常见注解的作用</a>
+          <ol>
+            <li><a href="#生成文档相关的注解">生成文档相关的注解</a></li>
+            <li><a href="#在编译时进行格式检查--jdk-内置的三个基本注解">在编译时进行格式检查 ( JDK 内置的三个基本注解)</a></li>
+            <li><a href="#跟踪代码依赖性实现替代配置文件功能">跟踪代码依赖性，实现替代配置文件功能</a></li>
+          </ol>
+        </li>
+        <li><a href="#三个最基本的注解">三个最基本的注解</a>
+          <ol>
+            <li><a href="#override">@Override</a></li>
+            <li><a href="#deprecated">@Deprecated</a></li>
+            <li><a href="#suppresswarnings">@SuppressWarnings</a></li>
+          </ol>
+        </li>
+        <li><a href="#元注解">元注解</a></li>
+        <li><a href="#自定义注解的使用">自定义注解的使用</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+
+    </div>
+</section>
+
+    
+    
+    
+    <h2 id="枚举">枚举
+</h2><h3 id="概述">概述
+</h3><p>枚举类型本质上也是一种类，只不过是这个类的对象是<strong>有限的、固定的</strong>几个，不能让用户随意创建。</p>
+<p>在生活中枚举的例子数不胜数：</p>
+<ul>
+<li>星期：Monday（星期一 ）…… Sunday（星期天）</li>
+<li>性别：Man（男） 、 Woman（女）</li>
+<li>月份：January（1 月）&hellip;&hellip; December（12 月）</li>
+<li>等等</li>
+</ul>
+<p>在开发中，如果针对于某个类而言，其实例的个数是确定的，那么这个类就可以声明为枚举类，也推荐声明为枚举类。并且如果这个枚举类的实例就只有一个，就可以把这个枚举类看作是<strong>单例</strong>实现的。</p>
+<p>在 JDK5.0 之前，需要程序员自定义枚举类型。在 JDK5.0 之后， Java 支持 通过 enum 关键字来快速定义枚举类型。</p>
+<h3 id="枚举类的使用">枚举类的使用
+</h3><h4 id="定义枚举类">定义枚举类
+</h4><h5 id="jdk-50-之前">JDK 5.0 之前
+</h5><p>在JDK5.0 之前如何声明枚举类呢？</p>
+<ul>
+<li>私有化类的构造器，保证不能在类的外部创建其对象。</li>
+<li>在类的内部创建枚举类的实例。声明为：<strong><mark>public static final</mark></strong>，对外暴露这些常量对象。</li>
+<li>类中如果有实例变量，应该声明为 <strong><mark>private final</mark></strong>（建议，不是必须），并在构造器中初始化。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Season</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">SEASON_NAME</span><span class="p">;</span><span class="w"> </span><span class="c1">//季节的名称</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">SEASON_DESC</span><span class="p">;</span><span class="w"> </span><span class="c1">//季节的描述</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="nf">Season</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">seasonName</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">seasonDesc</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">SEASON_NAME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">seasonName</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">SEASON_DESC</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">seasonDesc</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// Season 的实例 都是静态的 可以通过类名获得</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 实例都是 final 的 防止被用户在外部改变 如：Season.SPRING = null;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 可以写在类中的任意位置</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">Season</span><span class="w"> </span><span class="n">SPRING</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Season</span><span class="p">(</span><span class="s">&#34;春天&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;春暖花开&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">Season</span><span class="w"> </span><span class="n">SUMMER</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Season</span><span class="p">(</span><span class="s">&#34;夏天&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;夏日炎炎&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">Season</span><span class="w"> </span><span class="n">AUTUMN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Season</span><span class="p">(</span><span class="s">&#34;秋天&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;秋高气爽&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">Season</span><span class="w"> </span><span class="n">WINTER</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Season</span><span class="p">(</span><span class="s">&#34;冬天&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;白雪皑皑&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">toString</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="s">&#34;Season{&#34;</span><span class="w"> </span><span class="o">+</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="s">&#34;SEASON_NAME=&#39;&#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">SEASON_NAME</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="sc">&#39;\&#39;&#39;</span><span class="w"> </span><span class="o">+</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="s">&#34;, SEASON_DESC=&#39;&#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">SEASON_DESC</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="sc">&#39;\&#39;&#39;</span><span class="w"> </span><span class="o">+</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="sc">&#39;}&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">class</span> <span class="nc">SeasonTest</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">Season</span><span class="p">.</span><span class="na">SPRING</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">Season</span><span class="p">.</span><span class="na">SUMMER</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">Season</span><span class="p">.</span><span class="na">AUTUMN</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">Season</span><span class="p">.</span><span class="na">WINTER</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div></br>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-console" data-lang="console"><span class="line"><span class="cl"><span class="go">Season{SEASON_NAME=&#39;春天&#39;, SEASON_DESC=&#39;春暖花开&#39;}
+</span></span></span><span class="line"><span class="cl"><span class="go">Season{SEASON_NAME=&#39;夏天&#39;, SEASON_DESC=&#39;夏日炎炎&#39;}
+</span></span></span><span class="line"><span class="cl"><span class="go">Season{SEASON_NAME=&#39;秋天&#39;, SEASON_DESC=&#39;秋高气爽&#39;}
+</span></span></span><span class="line"><span class="cl"><span class="go">Season{SEASON_NAME=&#39;冬天&#39;, SEASON_DESC=&#39;白雪皑皑&#39;}
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h5 id="jdk-50-之后">JDK 5.0 之后
+</h5><p>在 JDK 5.0 之后，定义枚举类就非常方便了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// []中的内容表示可选</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// &lt;&gt;中的内容表示必选</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">[</span><span class="kd">public</span><span class="o">]</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="o">&lt;</span><span class="kd">enum</span><span class="w"> </span><span class="n">name</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">常量对象列表</span><span class="p">;</span><span class="w"> </span><span class="p">(</span><span class="n">不同对象之间用</span><span class="sc">&#39;,&#39;</span><span class="n">连接</span><span class="err">，</span><span class="w"> </span><span class="n">最后以</span><span class="sc">&#39;;&#39;</span><span class="n">结尾</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">[</span><span class="n">对象的实例变量列表</span><span class="o">]</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div></br>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 举例</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="n">Season</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 定义枚举实例必须这么写 不能添加额外的东西 public static final 也不行！</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 必须在枚举类的最上面 既常量列表的上面不能有其他语句</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">SPRING</span><span class="p">(</span><span class="s">&#34;春暖花开&#34;</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">SUMMER</span><span class="p">(</span><span class="s">&#34;夏日炎炎&#34;</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">AUTUMN</span><span class="p">(</span><span class="s">&#34;秋高气爽&#34;</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">WINTER</span><span class="p">(</span><span class="s">&#34;白雪皑皑&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">SEASON_DESC</span><span class="p">;</span><span class="w"> </span><span class="c1">//季节的描述</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 这里的 private 可以省略</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="nf">Season</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">seasonDesc</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">SEASON_DESC</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">seasonDesc</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="https://s2.loli.net/2024/10/16/n8uSPfjxcKoiCJt.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20241016230018886"
+	
+	
+></p>
+<p>如果枚举类中没有实例变量，那么定义出来枚举类就可以变成短短的一行</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="n">Week</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">MONDAY</span><span class="p">,</span><span class="w"> </span><span class="n">TUESDAY</span><span class="p">,</span><span class="w"> </span><span class="n">WEDNESDAY</span><span class="p">,</span><span class="w"> </span><span class="n">THURSDAY</span><span class="p">,</span><span class="w"> </span><span class="n">FRIDAY</span><span class="p">,</span><span class="w"> </span><span class="n">SATURDAY</span><span class="p">,</span><span class="w"> </span><span class="n">SUNDAY</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div></br>
+
+
+
+<div class="notice notice-info" >
+    <div class="notice-title"><svg xmlns="http://www.w3.org/2000/svg" class="icon notice-icon" viewBox="0 0 512 512" fill="hsl(30, 80%, 70%)"><path d="M256 8a248 248 0 100 496 248 248 0 000-496zm0 110a42 42 0 110 84 42 42 0 010-84zm56 254c0 7-5 12-12 12h-88c-7 0-12-5-12-12v-24c0-7 5-12 12-12h12v-64h-12c-7 0-12-5-12-12v-24c0-7 5-12 12-12h64c7 0 12 5 12 12v100h12c7 0 12 5 12 12v24z"/></svg></div><p>enum定义的要求和特定：</p>
+<ul>
+<li><strong>枚举类的常量对象列表必须在枚举类的首行</strong>。因为是常量，所以建议大写。</li>
+<li>列出的实例系统会自动添加 public static final 修饰。不需要也<strong>不能手动添加</strong>。</li>
+<li>如果常量对象列表后面没有其他代码，那么 <strong>&rsquo;;&rsquo;</strong> 可以省略，否则不可以省略。</li>
+<li>编译器给枚举类默认提供的是 <strong>private 的无参构造器</strong>，如果枚举类需要的是无参构造器就不需要声明，写常量对象列表时也不用加括号和参数。</li>
+<li>如果枚举类需要的是有参构造器就需要手动定义，有参构造器的 private 修饰符可以省略，调用有参构造器的方法就是在常量对象名后面加括号和实参列表就可以。</li>
+<li>枚举类可以作为枚举类和其他类的内部类。</li>
+<li>枚举类默认继承的是 <strong>java.lang.Enum</strong> 类，因此<strong>不能再继承其他的类型</strong>。但是<strong>枚举类可以实现接口</strong>。</li>
+<li>JDK5.0 之后 switch 支持枚举类型， case 后面可以写枚举常量名，<strong>无需添加枚举类作为限定</strong>（当然加了也不会错）。</li>
+</ul></div>
+
+</br>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="kd">interface</span> <span class="nc">IWeek</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">showWeek</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="n">Week</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">IWeek</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">MONDAY</span><span class="p">,</span><span class="w"> </span><span class="n">TUESDAY</span><span class="p">,</span><span class="w"> </span><span class="n">WEDNESDAY</span><span class="p">,</span><span class="w"> </span><span class="n">THURSDAY</span><span class="p">,</span><span class="w"> </span><span class="n">FRIDAY</span><span class="p">,</span><span class="w"> </span><span class="n">SATURDAY</span><span class="p">,</span><span class="w"> </span><span class="n">SUNDAY</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">showWeek</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;Week::showWeek()&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">class</span> <span class="nc">TestWeek</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Week</span><span class="w"> </span><span class="n">week</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Week</span><span class="p">.</span><span class="na">MONDAY</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">week</span><span class="p">.</span><span class="na">getClass</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">week</span><span class="p">.</span><span class="na">getClass</span><span class="p">().</span><span class="na">getSuperclass</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">week</span><span class="p">.</span><span class="na">getClass</span><span class="p">().</span><span class="na">getSuperclass</span><span class="p">().</span><span class="na">getSuperclass</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">week</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="n">Week</span><span class="p">.</span><span class="na">MONDAY</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;MONDAY&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="k">break</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="n">TUESDAY</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;TUESDAY&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="k">break</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="n">WEDNESDAY</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;WEDNESDAY&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="k">break</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="n">THURSDAY</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;THURSDAY&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="k">break</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="n">FRIDAY</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;FRIDAY&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="k">break</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="n">SATURDAY</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;SATURDAY&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="k">break</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="n">SUNDAY</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;SUNDAY&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="k">break</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">default</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="k">break</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div></br>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-console" data-lang="console"><span class="line"><span class="cl"><span class="go">class uskg.kotoriforest.enumtest.Week
+</span></span></span><span class="line"><span class="cl"><span class="go">class java.lang.Enum
+</span></span></span><span class="line"><span class="cl"><span class="go">java.lang.Enum
+</span></span></span><span class="line"><span class="cl"><span class="go">MONDAY
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="https://s2.loli.net/2024/10/16/uTVtXSE6zHRd72v.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20241016232503046"
+	
+	
+></p>
+<p><strong>开发中，当需要定义一组常量时，强烈建议使用枚举类。</strong></p>
+<h3 id="enum中的常用方法">enum中的常用方法
+</h3><p>既然enum继承自Enum，那么肯定会得到一些方法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">String</span><span class="w"> </span><span class="nf">toString</span><span class="p">();</span><span class="w"> </span><span class="c1">// 默认返回的是常量名（对象名），可以继续手动重写该方法！ </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">static</span><span class="w"> </span><span class="n">枚举类型</span><span class="o">[]</span><span class="w"> </span><span class="nf">values</span><span class="p">();</span><span class="w"> </span><span class="c1">//返回枚举类型的对象数组。该方法可以很方便地遍历所有的枚举值，是一个静态方法 </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">static</span><span class="w"> </span><span class="n">枚举类型</span><span class="w"> </span><span class="nf">valueOf</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">);</span><span class="w"> </span><span class="c1">// 可以把一个字符串转为对应的枚举类对象。要求字符串必须是枚举类对象的“名字”(即定义枚举类对象时写下的字面值，如 SPRING 的名字就是 SPRING)。如不是，会有运行时异常：IllegalArgumentException。 </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">String</span><span class="w"> </span><span class="nf">name</span><span class="p">()</span><span class="w"> </span><span class="c1">// 得到当前枚举常量的名称。建议优先使用toString()。 </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kt">int</span><span class="w"> </span><span class="nf">ordinal</span><span class="p">()</span><span class="w"> </span><span class="c1">// 返回当前枚举常量的次序号，默认从0开始</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div></br>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">java.util.Scanner</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="n">Week</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">MONDAY</span><span class="p">,</span><span class="w"> </span><span class="n">TUESDAY</span><span class="p">,</span><span class="w"> </span><span class="n">WEDNESDAY</span><span class="p">,</span><span class="w"> </span><span class="n">THURSDAY</span><span class="p">,</span><span class="w"> </span><span class="n">FRIDAY</span><span class="p">,</span><span class="w"> </span><span class="n">SATURDAY</span><span class="p">,</span><span class="w"> </span><span class="n">SUNDAY</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">class</span> <span class="nc">TestEnumMethod</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//values()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Week</span><span class="o">[]</span><span class="w"> </span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Week</span><span class="p">.</span><span class="na">values</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">Week</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">values</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c1">//ordinal()、name()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">((</span><span class="n">value</span><span class="p">.</span><span class="na">ordinal</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&#34;-&gt;&#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">value</span><span class="p">.</span><span class="na">name</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;------------------------&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Scanner</span><span class="w"> </span><span class="n">input</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Scanner</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">in</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">print</span><span class="p">(</span><span class="s">&#34;请输入星期值：&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">weekValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">input</span><span class="p">.</span><span class="na">nextInt</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Week</span><span class="w"> </span><span class="n">week</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">values</span><span class="o">[</span><span class="n">weekValue</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">1</span><span class="o">]</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//toString()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">week</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">print</span><span class="p">(</span><span class="s">&#34;请输入星期名：&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">weekName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">input</span><span class="p">.</span><span class="na">next</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//valueOf()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">week</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Week</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="n">weekName</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">week</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">input</span><span class="p">.</span><span class="na">close</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div></br>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-console" data-lang="console"><span class="line"><span class="cl"><span class="go">1-&gt;MONDAY
+</span></span></span><span class="line"><span class="cl"><span class="go">2-&gt;TUESDAY
+</span></span></span><span class="line"><span class="cl"><span class="go">3-&gt;WEDNESDAY
+</span></span></span><span class="line"><span class="cl"><span class="go">4-&gt;THURSDAY
+</span></span></span><span class="line"><span class="cl"><span class="go">5-&gt;FRIDAY
+</span></span></span><span class="line"><span class="cl"><span class="go">6-&gt;SATURDAY
+</span></span></span><span class="line"><span class="cl"><span class="go">7-&gt;SUNDAY
+</span></span></span><span class="line"><span class="cl"><span class="go">------------------------
+</span></span></span><span class="line"><span class="cl"><span class="go">请输入星期值：3
+</span></span></span><span class="line"><span class="cl"><span class="go">WEDNESDAY
+</span></span></span><span class="line"><span class="cl"><span class="go">请输入星期名：SUNDAY
+</span></span></span><span class="line"><span class="cl"><span class="go">SUNDAY
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="实现接口的枚举类">实现接口的枚举类
+</h3><ul>
+<li>和普通 Java 类一样，枚举类可以<strong>实现一个或多个接口</strong>。</li>
+<li>若每个<strong>枚举值</strong>在调用实现的接口方法呈现相同的行为方式，则只要<strong>在枚举类中统一实现</strong>该方法即可。</li>
+<li>若需要每个<strong>枚举值</strong>在调用实现的接口方法呈现出不同的行为方式，则可以<strong>让每个枚举值分别来实现</strong>该方法。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 枚举类可以像普通的类一样，实现接口，并且可以多个，但要求必须实现里面所有的抽象方法！ </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">enum</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">接口1</span><span class="err">，</span><span class="n">接口2</span><span class="w"> </span><span class="p">{</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//抽象方法的实现 </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 枚举类的实例可以独立重写抽象方法! </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">enum</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">接口1</span><span class="err">，</span><span class="n">接口2</span><span class="w"> </span><span class="p">{</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">常量名1</span><span class="p">(</span><span class="n">参数</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//抽象方法的实现或重写 </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">},</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">常量名2</span><span class="p">(</span><span class="n">参数</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//抽象方法的实现或重写 </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">},</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//... </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div></br>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">interface</span> <span class="nc">Info</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">show</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//使用 enum 关键字定义枚举类</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="n">Season</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">Info</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 创建枚举类中的对象,声明在 enum 枚举类的首位</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">SPRING</span><span class="p">(</span><span class="s">&#34;春天&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;春暖花开&#34;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">show</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;春天在哪里？&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">},</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">SUMMER</span><span class="p">(</span><span class="s">&#34;夏天&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;夏日炎炎&#34;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">show</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;宁静的夏天&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">},</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">AUTUMN</span><span class="p">(</span><span class="s">&#34;秋天&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;秋高气爽&#34;</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">WINTER</span><span class="p">(</span><span class="s">&#34;冬天&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;白雪皑皑&#34;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">show</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;2002 年的第一场雪&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">};</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 声明每个对象拥有的属性 用 private final 修饰</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">SEASON_NAME</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">SEASON_DESC</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 私有化类的构造器</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="nf">Season</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">seasonName</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">seasonDesc</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">SEASON_NAME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">seasonName</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">SEASON_DESC</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">seasonDesc</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getSEASON_NAME</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">SEASON_NAME</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getSEASON_DESC</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">SEASON_DESC</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 为枚举类实现抽象方法</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 如果每个枚举对象都实现了独属于自己的抽象方法 就可以不为抽象类实现 否则就要实现 这里 AUTUMN 没有实现自己的抽象方法</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 所以 AUTUMN 就会调用枚举类实现的方法 即这个方法</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">show</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;这是一个平凡的季节&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">class</span> <span class="nc">SeasonTest</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">Season</span><span class="w"> </span><span class="n">season</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Season</span><span class="p">.</span><span class="na">values</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">season</span><span class="p">.</span><span class="na">show</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="使用枚举来实现单例模式">使用枚举来实现单例模式
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// jdk5.0 之前使用枚举类定义单例模式</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Singleton</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">Singleton</span><span class="w"> </span><span class="n">INSTANCE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Singleton</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="nf">Singleton</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// jdk5.0 及之后使用枚举类定义单例模式</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="n">Singleton</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">instance</span><span class="p">;</span><span class="w"> </span><span class="c1">// public static final</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/* enum 默认的构造函数就是 private 的 所以不需要自己声明 */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="注解">注解
+</h2><h3 id="概述-1">概述
+</h3><p>注解（Annotation）是从 JDK5.0 开始引入，以“@注解名”在代码中存在。例如：</p>
+<ul>
+<li>@Override</li>
+<li>@Deprecated</li>
+<li>@SuppressWarnings( value=&quot; &quot; )</li>
+</ul>
+<p>Annotation 可以像修饰符一样被使用，可用于修饰包、类、构造器、方法、成员变量、参数、局部变量的声明。还可以添加一些参数值，这些信息被保存在 Annotation 的 “key=value” 键值对中。</p>
+<p>注解可以在<strong>类编译、运行时进行加载</strong>，体现不同的功能。</p>
+<h4 id="注解与注释的区别">注解与注释的区别
+</h4><p>注解也可以看做是一种注释，通过使用 Annotation，程序员可以在不改变原有逻辑的情况下，在源文件中嵌入一些补充信息。但是，注解不同于单行注释和多行注释</p>
+<ul>
+<li>单行注释和多行注释是给程序员看的。</li>
+<li>注解是可以被编译器或其他程序读取的。程序还可以根据注解的不同，做出相应的处理。</li>
+</ul>
+<h4 id="注解的重要性">注解的重要性
+</h4><p>在 JavaSE 中，注解的使用目的比较简单，例如标记过时的功能，忽略警告等。但是在 JavaEE 和 Android 中注解占据了更重要的角色，例如用来配置应用程序的任何切面，代替 JavaEE 旧版中所遗留的繁冗代码和 XML 配置等。
+未来的开发模式都是基于注解的，JPA是基于注解的，Spring2.5以上都是基于注解的，Hibernate3.x以后也是基于注解的，Struts2有一部分也是基于注解的了。注解是一种趋势，一定程度上可以说：<strong><mark>框架 = 注解 &#43; 反射 &#43; 设计模式</mark></strong>。</p>
+<h3 id="常见注解的作用">常见注解的作用
+</h3><h4 id="生成文档相关的注解">生成文档相关的注解
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@author</span><span class="w"> </span><span class="n">标明开发该类模块的作者</span><span class="err">，</span><span class="n">多个作者之间使用</span><span class="sc">&#39;,&#39;</span><span class="n">分割</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@version</span><span class="w"> </span><span class="n">标明该类模块的版本</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@see</span><span class="w"> </span><span class="n">参考转向</span><span class="err">，</span><span class="n">也就是相关主题</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@since</span><span class="w"> </span><span class="n">从哪个版本开始增加的</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@param</span><span class="w"> </span><span class="n">对方法中某参数的说明</span><span class="err">，</span><span class="n">如果没有参数就不能写</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@return</span><span class="w"> </span><span class="n">对方法返回值的说明</span><span class="err">，</span><span class="n">如果方法的返回值类型是</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">就不能写</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@exception</span><span class="w"> </span><span class="n">对方法可能抛出的异常进行说明</span><span class="err">，</span><span class="n">如果方法没有用</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">显式抛出的异常就不能写</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div></br>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">JavadocTest</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">	* 程序的主方法，程序的入口
+</span></span></span><span class="line"><span class="cl"><span class="cm">	* @param args String[] 命令行参数
+</span></span></span><span class="line"><span class="cl"><span class="cm">	*/</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">	* 求圆面积的方法
+</span></span></span><span class="line"><span class="cl"><span class="cm">	* @param radius double 半径值
+</span></span></span><span class="line"><span class="cl"><span class="cm">	* @return double 圆的面积
+</span></span></span><span class="line"><span class="cl"><span class="cm">	*/</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">getArea</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">radius</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">PI</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">radius</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">radius</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="在编译时进行格式检查--jdk-内置的三个基本注解">在编译时进行格式检查 ( JDK 内置的三个基本注解)
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Override</span><span class="p">:</span><span class="w"> </span><span class="n">限定于重写父类方法</span><span class="err">，</span><span class="n">该注解只能用于方法</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Deprecated</span><span class="p">:</span><span class="w"> </span><span class="n">用于表示所修饰的元素</span><span class="p">(</span><span class="n">类</span><span class="err">，</span><span class="n">方法等</span><span class="p">)</span><span class="n">已过时</span><span class="err">。</span><span class="n">通常是因为所修饰的结构危险或存在更好的选择</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@SuppressWarnings</span><span class="p">:</span><span class="w"> </span><span class="n">抑制编译器警告</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div></br>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">AnnotationTest</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nd">@SuppressWarnings</span><span class="p">(</span><span class="s">&#34;unused&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">10</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Deprecated</span><span class="p">(</span><span class="n">since</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;8&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">print</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;过时的方法&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">toString</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="s">&#34;重写的toString()&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="跟踪代码依赖性实现替代配置文件功能">跟踪代码依赖性，实现替代配置文件功能
+</h4><p>Servlet3.0 提供了注解（annotation），使得不再需要在 web.xml 文件中进行 Servlet 的部署。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 使用注解完成相关功能</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@WebServlet</span><span class="p">(</span><span class="s">&#34;/login&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">LoginServlet</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">HttpServlet</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">serialVersionUID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">1L</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="kd">protected</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">doGet</span><span class="p">(</span><span class="n">HttpServletRequest</span><span class="w"> </span><span class="n">request</span><span class="p">,</span><span class="w"> </span><span class="n">HttpServletResponse</span><span class="w"> </span><span class="n">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="kd">protected</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">doPost</span><span class="p">(</span><span class="n">HttpServletRequest</span><span class="w"> </span><span class="n">request</span><span class="p">,</span><span class="w"> </span><span class="n">HttpServletResp</span><span class="w"> </span><span class="n">onse</span><span class="w"> </span><span class="n">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="n">doGet</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="w"> </span><span class="n">response</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// Spring 框架中关于“事务”的管理</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Transactional</span><span class="p">(</span><span class="n">propagation</span><span class="o">=</span><span class="n">Propagation</span><span class="p">.</span><span class="na">REQUIRES_NEW</span><span class="p">,</span><span class="n">isolation</span><span class="o">=</span><span class="n">Isolation</span><span class="p">.</span><span class="na">READ_COMMITTED</span><span class="p">,</span><span class="n">readOnly</span><span class="o">=</span><span class="kc">false</span><span class="p">,</span><span class="n">timeout</span><span class="o">=</span><span class="n">3</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">buyBook</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">isbn</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="c1">// 查询书的单价</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="kt">int</span><span class="w"> </span><span class="n">price</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bookShopDao</span><span class="p">.</span><span class="na">findBookPriceByIsbn</span><span class="p">(</span><span class="n">isbn</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="c1">// 更新库存</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">bookShopDao</span><span class="p">.</span><span class="na">updateBookStock</span><span class="p">(</span><span class="n">isbn</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="c1">// 更新用户的余额</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">bookShopDao</span><span class="p">.</span><span class="na">updateUserAccount</span><span class="p">(</span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="n">price</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div></br>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl">// 使用配置文件完成相关功能
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;servlet&gt;</span>
+</span></span><span class="line"><span class="cl">	<span class="nt">&lt;servlet-name&gt;</span>LoginServlet<span class="nt">&lt;/servlet-name&gt;</span>
+</span></span><span class="line"><span class="cl">	<span class="nt">&lt;servlet-class&gt;</span>com.servlet.LoginServlet<span class="nt">&lt;/servlet-class&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/servlet&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;servlet-mapping&gt;</span>
+</span></span><span class="line"><span class="cl">	<span class="nt">&lt;servlet-name&gt;</span>LoginServlet<span class="nt">&lt;/servlet-name&gt;</span>
+</span></span><span class="line"><span class="cl">	<span class="nt">&lt;url-pattern&gt;</span>/login<span class="nt">&lt;/url-pattern&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/servlet-mapping&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- 配置事务属性 --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;tx:advice</span> <span class="na">transaction-manager=</span><span class="s">&#34;dataSourceTransactionManager&#34;</span> <span class="na">id=</span><span class="s">&#34;tx Advice&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">	<span class="nt">&lt;tx:attributes&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="c">&lt;!-- 配置每个方法使用的事务属性 --&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;tx:methodname</span><span class="err">=&#34;buyBook&#34;</span><span class="na">propagation=</span><span class="s">&#34;REQUIRES_NEW&#34;</span><span class="na">isolation=</span><span class="s">&#34;READ_COMMITTED&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="na">readonly=</span><span class="s">&#34;false&#34;</span><span class="na">timeout=</span><span class="s">&#34;3&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">	<span class="nt">&lt;/tx:attributes&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/tx:advice&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="三个最基本的注解">三个最基本的注解
+</h3><h4 id="override">@Override
+</h4><ul>
+<li>用于检测被标记的方法为有效的重写方法，如果不是，则报编译错误！</li>
+<li>只能标记在方法上。</li>
+<li>它会被编译器程序读取。</li>
+</ul>
+<p>@Override 主要就是用来检查是否重写了父类或接口的的某个方法。你可能会感到困惑，正常人谁会写错啊，有必要特地写一个注解来检查吗？您还真别说，真不一定写的对。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">SuperClass</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">showMe1Message</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;SuperClass.showMe1Message&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">AnnotationTest</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">SuperClass</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 这里乍看过去好像是重写了父类的方法 但是其实并没有</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 在父类中是 &#39;1&#39; 而在子类中是 &#39;l&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">showMelMessage</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;AnnotationTest.showMelMessage&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果你成功发现了这些细微差别，那么恭喜你，你的眼睛比我好多了，因为我真的有时候看快了就没看出来。没看出来也不要紧，因为@Override就是来解决这个问题的。</p>
+<p><img src="https://s2.loli.net/2024/10/17/tD5rJigxAeU3W6X.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20241017233320096"
+	
+	
+></p>
+<p>如果你没有成功重写父类的方法的话，@Override就会报错，我还不信这么刺眼的红线你都看不见。</p>
+<p><del>但说实话，如果你用的是 IDEA ，<kbd>Alt</kbd> + <kbd>Insrrt</kbd>就能解决这个问题了，IDEA真是太方便了！</del></p>
+<h4 id="deprecated">@Deprecated
+</h4><ul>
+<li>用于表示被标记的数据已经过时，不推荐使用。</li>
+<li>可以用于修饰属性、方法、构造、类、包、局部变量、参数。</li>
+<li>它会被编译器程序读取。</li>
+</ul>
+<p>说实话这个注解就目前来说，我根本就用不到，也就是在 JDK 的官方库中才有机会见到。</p>
+<p><img src="https://s2.loli.net/2024/10/17/62iMug95KnWkEzA.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>注解中的 <code>since</code> 标明从 jdk 的哪个版本开始废弃，<code>forRemoval</code>标识被注解的函数等会不会在将来被删除，所以如果一个函数、类……被标记为<code>Deprecated</code>就最好不要在程序中使用了。如果你使用了，编译器可能会给你报错误或者警告，但是不要紧，还是可以正常编译运行的。</p>
+<h4 id="suppresswarnings">@SuppressWarnings
+</h4><ul>
+<li>抑制编译警告。当我们不希望看到警告信息的时候，可以使用 <code>SuppressWarnings</code> 注解来抑制警告信息。</li>
+<li>可以用于修饰类、属性、方法、构造、局部变量、参数。</li>
+<li>它会被编译器程序读取。</li>
+<li>可以指定的警告类型有（部分）：</li>
+</ul>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>警告类型</th>
+          <th>说明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>all</td>
+          <td>抑制所有警告</td>
+      </tr>
+      <tr>
+          <td>unchecked</td>
+          <td>抑制与未检查的作业相关的警告</td>
+      </tr>
+      <tr>
+          <td>unused</td>
+          <td>抑制与未用的程式码及停用的程式码相关的警告</td>
+      </tr>
+      <tr>
+          <td>deprecation</td>
+          <td>抑制与淘汰的相关警告</td>
+      </tr>
+      <tr>
+          <td>nls</td>
+          <td>抑制与非 nls 字串文字相关的警告</td>
+      </tr>
+      <tr>
+          <td>null</td>
+          <td>抑制与空值分析相关的警告</td>
+      </tr>
+      <tr>
+          <td>rawtypes</td>
+          <td>抑制与使用 raw 类型相关的警告</td>
+      </tr>
+      <tr>
+          <td>static access</td>
+          <td>抑制与静态存取不正确相关的警告</td>
+      </tr>
+      <tr>
+          <td>static method</td>
+          <td>抑制与可能宣告为 static 的方法相关的警告</td>
+      </tr>
+      <tr>
+          <td>super</td>
+          <td>抑制与置换方法相关但不含 super 呼叫的警告</td>
+      </tr>
+  </tbody>
+</table></div>
+<h3 id="元注解">元注解
+</h3><p>元注解简而言之来说就是<strong><mark>作用于注解的注解</mark></strong>。</p>
+<p>JDK1.5 在 java.lang.annotation 包定义了4个标准的 meta-annotation 类型，它们被用来提供对其它 annotation 类型作说明。</p>
+<ol>
+<li>@Target：用于描述注解的使用范围
+<ul>
+<li>可以通过枚举类型 ElementType 的 10 个常量对象来指定</li>
+</ul>
+</li>
+<li>@Retention：用于描述注解的生命周期
+<ul>
+<li>可以通过枚举类型 RetentionPolicy 的 3 个常量对象来指定，分别是SOURCE （源代码）、 CLASS （字节码）、 RUNTIME （运行时）</li>
+<li><strong>唯有 RUNTIME 阶段才能被反射读取到。</strong></li>
+</ul>
+</li>
+<li>@Documented：表明这个注解应该被 javadoc工具记录。</li>
+<li>@Inherited：允许子类继承父类中的注解</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="n">ElementType</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/** Class, interface (including annotation interface), enum, or record
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * declaration */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">TYPE</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/** Field declaration (includes enum constants) */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">FIELD</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/** Method declaration */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">METHOD</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/** Formal parameter declaration */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">PARAMETER</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/** Constructor declaration */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">CONSTRUCTOR</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/** Local variable declaration */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">LOCAL_VARIABLE</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/** Annotation interface declaration (Formerly known as an annotation type.) */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">ANNOTATION_TYPE</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/** Package declaration */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">PACKAGE</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * Type parameter declaration
+</span></span></span><span class="line"><span class="cl"><span class="cm">     *
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @since 1.8
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">TYPE_PARAMETER</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * Use of a type
+</span></span></span><span class="line"><span class="cl"><span class="cm">     *
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @since 1.8
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">TYPE_USE</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * Module declaration.
+</span></span></span><span class="line"><span class="cl"><span class="cm">     *
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @since 9
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">MODULE</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * Record component
+</span></span></span><span class="line"><span class="cl"><span class="cm">     *
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @jls 8.10.3 Record Members
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @jls 9.7.4 Where Annotations May Appear
+</span></span></span><span class="line"><span class="cl"><span class="cm">     *
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @since 16
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">RECORD_COMPONENT</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div></br>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// @Deprecated 的定义</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">package</span><span class="w"> </span><span class="nn">java.lang</span><span class="p">;</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.lang.annotation.*</span><span class="p">;</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import static</span><span class="w"> </span><span class="nn">java.lang.annotation.ElementType.*</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Documented</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Retention</span><span class="p">(</span><span class="n">RetentionPolicy</span><span class="p">.</span><span class="na">RUNTIME</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Target</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="p">{</span><span class="n">CONSTRUCTOR</span><span class="p">,</span><span class="w"> </span><span class="n">FIELD</span><span class="p">,</span><span class="w"> </span><span class="n">LOCAL_VARIABLE</span><span class="p">,</span><span class="w"> </span><span class="n">METHOD</span><span class="p">,</span><span class="w"> </span><span class="n">PACKAGE</span><span class="p">,</span><span class="w"> </span><span class="n">MODULE</span><span class="p">,</span><span class="w"> </span><span class="n">PARAMETER</span><span class="p">,</span><span class="w"> </span><span class="n">TYPE</span><span class="p">})</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="nd">@interface</span><span class="w"> </span><span class="n">Deprecated</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="nf">since</span><span class="p">()</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="s">&#34;&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">boolean</span><span class="w"> </span><span class="nf">forRemoval</span><span class="p">()</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="自定义注解的使用">自定义注解的使用
+</h3><p>一个完整的注解应该包含三个部分：（1）声明 （2）使用 （3）读取</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="o">[</span><span class="n">元注解</span><span class="o">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">[</span><span class="n">修饰符</span><span class="o">]</span><span class="w"> </span><span class="nd">@interface</span><span class="w"> </span><span class="o">&lt;</span><span class="n">注解名</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">[</span><span class="n">成员列表</span><span class="o">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>自定义注解可以通过四个元注解 @Retention, @Target, @Inherited, @Documented 分别说明它的声明周期，使用位置，是否被继承，是否被生成到 API 文档中。</p>
+<p>Annotation 的成员在 Annotation 的定义中以<strong>无参数有返回值的抽象方法</strong>的形式来声明，我们又称为配置参数。返回值类型<strong>只能是八种基本数据类型：String 类型、 Class 类型、 enum 类型、 Annotation 类型、以上所有类型的数组</strong>。可以使用 default 关键字为抽象方法指定默认返回值。</p>
+<p>如果定义的注解含有抽象方法，那么<strong>使用时</strong>必须指定返回值，除非它有默认值。格式是 <code>“方法名 = 返回值”</code>，如果只有一个抽象方法需要赋值，且方法名为 value，则可以省略 “ value= ”，所以如果注解只有一个抽象方法成员，建议使用方法名 value 。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">java.lang.annotation.Retention</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.lang.annotation.RetentionPolicy</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 定义自定义注解</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Target</span><span class="p">(</span><span class="n">ElementType</span><span class="p">.</span><span class="na">TYPE</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Retention</span><span class="p">(</span><span class="n">RetentionPolicy</span><span class="p">.</span><span class="na">RUNTIME</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="nd">@interface</span><span class="w"> </span><span class="n">MyAnnotation</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 定义带有默认值的属性</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="nf">name</span><span class="p">()</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="s">&#34;DefaultName&#34;</span><span class="p">;</span><span class="w"> </span><span class="c1">// 如果没有指定，使用默认值</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="nf">age</span><span class="p">()</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">18</span><span class="p">;</span><span class="w"> </span><span class="c1">// 如果没有指定，使用默认值</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="nf">tags</span><span class="p">()</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="p">{</span><span class="s">&#34;tag1&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;tag2&#34;</span><span class="p">};</span><span class="w"> </span><span class="c1">// 数组类型默认值</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 使用了默认值</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@MyAnnotation</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">class</span> <span class="nc">Example1</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 这里覆盖了默认值</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@MyAnnotation</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;John&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">25</span><span class="p">,</span><span class="w"> </span><span class="n">tags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">&#34;developer&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;java&#34;</span><span class="p">})</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">class</span> <span class="nc">Example2</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>自定义注解必须配上注解的信息处理流程才有意义。我们自己定义的注解，只能使用反射的代码读取。所以自定义注解的声明周期必须是RetentionPolicy.RUNTIME。</p>
+<p><del>反射我还没学到，等之后再说，嘿嘿🤭</del></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/javase/">JavaSE</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/1014-%E6%8E%A5%E5%8F%A3interface/">
+        
+        
+            <div class="article-image">
+                <img src="/p/1014-%E6%8E%A5%E5%8F%A3interface/cover.4551380608a5f29f60282846edb60860_hu14205137450872704636.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 接口interface"
+                        data-key="1014 接口interface" 
+                        data-hash="md5-RVE4Bgil8p9gKChG7bYIYA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">接口interface</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+
+
+    
+        
+        
+        
+        
+        
+    
+    
+        
+    
+
+
+
+
+
+
+
+    
+
+    
+        
+        
+
+        
+    
+
+    
+        
+        
+
+        
+    
+
+    
+        
+        
+
+        
+    
+
+    
+        
+        
+
+        
+    
+
+    
+        
+        
+
+        
+    
+
+    
+        
+        
+
+        
+    
+
+    
+        
+        
+
+        
+    
+
+    
+        
+        
+
+        
+    
+
+    
+
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css"/>
+<div id="waline" class="waline-container"></div>
+<style>
+    .waline-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+        --waline-font-size: var(--article-font-size);
+    }
+    .waline-container .wl-count {
+        color: var(--card-text-color-main);
+    }
+
+    :root{
+   	       --waline-border-color:transparent;
+   	}      
+
+</style><script type="module">
+    import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
+    init({"comment":true,"dark":"html[data-scheme=\"dark\"]","el":"#waline","emoji":["https://npm.elemecdn.com/@waline/emojis@1.2.0/tieba","https://npm.elemecdn.com/@waline/emojis@1.1.0/bilibili","https://npm.elemecdn.com/@waline/emojis@1.1.0/bmoji","https://npm.elemecdn.com/@waline/emojis@1.2.0/qq"],"lang":"zh-CN","locale":{"admin":"小鸟小姐","placeholder":"欢迎留下宝贵的评论！请留下正确的邮箱以便有回复时进行邮箱提醒，请勿发布任何与本文章无关的内容。","reaction0":"非常有用","reaction1":"有帮助","reaction2":"一般","reaction3":"无帮助","reaction4":"看不懂","reaction5":"有错误","reactionTitle":"这篇文章对你有帮助吗？","sofa":"🍀~森林雅座一位️~🍀"},"pageview":true,"reaction":["https://npm.elemecdn.com/@waline/emojis@1.2.0/tieba/tieba_agree.png","https://npm.elemecdn.com/@waline/emojis@1.2.0/tieba/tieba_yum.png","https://npm.elemecdn.com/@waline/emojis@1.2.0/tieba/tieba_cute.png","https://npm.elemecdn.com/@waline/emojis@1.2.0/tieba/tieba_awkward.png","https://npm.elemecdn.com/@waline/emojis@1.2.0/tieba/tieba_doubt.png","https://npm.elemecdn.com/@waline/emojis@1.2.0/tieba/tieba_rage.png"],"requiredMeta":["nick"],"serverURL":"https://commentforest.us.kg"});
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy;
+        
+        2024 Kotori🕊️
+    </section>
+
+    
+    <section class="running-time">
+        鹅掌草の森已经茁壮生长了
+        <span id="runningdays" class="running-days"></span>
+    </section>
+
+    
+    <section class="totalcount">
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        发表了2篇文章 ·
+        总计11.62k字 ·
+        共 <span class="waline-pageview-count" data-path="/">0</span> 次浏览
+    </section>
+
+    <section class="powerby">
+        
+        记录任何我想记录的事情。若无特殊说明，则本博客文章均为原创，复制转载请保留出处。 <br />
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener"
+                data-version="3.27.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+
+    
+    
+
+    <script type="module">
+        import { pageviewCount } from 'https://unpkg.com/@waline/client@v3/dist/pageview.js';
+      
+        pageviewCount({
+          serverURL: "https:\/\/commentforest.us.kg"
+        });
+    </script>
+
+
+
+    
+    <script src="/js/firework.js"></script>
+
+</footer>
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Long+Cang&family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@300&family=Noto+Serif+SC:wght@300&family=Zhi+Mang+Xing&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/gh/zhixuan2333/gh-blog@v0.1.0/js/nprogress.min.js" integrity="sha384-bHDlAEUFxsRI7JfULv3DTpL2IXbbgn4JHQJibgo5iiXSK6Iu8muwqHANhun74Cqg" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/zhixuan2333/gh-blog@v0.1.0/css/nprogress.css" integrity="sha384-KJyhr2syt5+4M9Pz5dipCvTrtvOmLk/olWVdfhAp858UCa64Ia5GFpTN7+G4BWpE" crossorigin="anonymous" />
+<script>
+    NProgress.start();
+    document.addEventListener("readystatechange", () => {
+        if (document.readyState === "interactive") NProgress.inc(0.8);
+        if (document.readyState === "complete") NProgress.done();
+    });
+</script>
+
+
+<script>
+    let s1 = '2024-10-3'; 
+    s1 = new Date(s1.replace(/-/g, "/"));
+    let s2 = new Date();
+    let timeDifference = s2.getTime() - s1.getTime();
+
+    let days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+    let hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    let minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+
+    let result = days + "天" + hours + "小时" + minutes + "分钟";
+    document.getElementById('runningdays').innerHTML = result;
+</script>
+
+<script>
+    (function(){var w=window;if(w.ChannelIO){return w.console.error("ChannelIO script included twice.");}var ch=function(){ch.c(arguments);};ch.q=[];ch.c=function(args){ch.q.push(args);};w.ChannelIO=ch;function l(){if(w.ChannelIOInitialized){return;}w.ChannelIOInitialized=true;var s=document.createElement("script");s.type="text/javascript";s.async=true;s.src="https://cdn.channel.io/plugin/ch-plugin-web.js";var x=document.getElementsByTagName("script")[0];if(x.parentNode){x.parentNode.insertBefore(s,x);}}if(document.readyState==="complete"){l();}else{w.addEventListener("DOMContentLoaded",l);w.addEventListener("load",l);}})();
+  
+    ChannelIO('boot', {
+      "pluginKey": "7d1c9f75-50a1-4bcc-afed-65600454d5a6"
+    });
+  </script>
+
+<a href="#" id="back-to-top" title="返回顶部"></a>
+
+
+<style>
+    #back-to-top {
+        display: none;
+        position: fixed;
+        bottom: 90px;  
+        right: 10px;
+        width: 55px;
+        height: 55px;
+        border-radius: 7px;
+        background-color: rgba(211, 238, 152, 0.5);
+        box-shadow: var(--shadow-l2);
+        font-size: 30px;
+        text-align: center;
+        line-height: 50px;
+        cursor: pointer;
+    }
+
+
+    #back-to-top:before {
+        content: ' ';
+        display: inline-block;
+        position: relative;
+        top: 0;
+        transform: rotate(135deg);
+        height: 10px;
+        width: 10px;
+        border-width: 0 0 2px 2px;
+        border-color: var(--back-to-top-color);
+        border-style: solid;
+    }
+
+    #back-to-top:hover:before {
+        border-color: #D3EE98;
+    }
+
+     
+    @media screen and (max-width: 768px) {
+        #back-to-top {
+            bottom: 75px;
+            right: 19px;
+            width: 40px;
+            height: 40px;
+            font-size: 10px;
+        }
+    }
+
+     
+    @media screen and (min-width: 1024px) {
+        #back-to-top {
+            bottom: 100px;
+            right: 31px;
+        }
+    }
+
+     
+    @media screen and (min-width: 1280px) {
+        #back-to-top {
+            bottom: 100px;
+            right: 33px;
+        }
+    }
+
+     
+    @media screen and (min-width: 1536px) {
+        #back-to-top {
+            visibility: visible;
+        }
+    }
+</style>
+
+
+<script>
+    function backToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth' 
+        });
+    }
+
+    window.onload = function () {
+        let scrollTop =
+            document.documentElement.scrollTop || document.body.scrollTop;
+        let totopBtn = document.getElementById('back-to-top');
+        if (scrollTop > 0) {
+            totopBtn.style.display = 'inline';
+        } else {
+            totopBtn.style.display = 'none';
+        }
+    }
+
+    window.onscroll = function () {
+        let scrollTop =
+            document.documentElement.scrollTop || document.body.scrollTop;
+        let totopBtn = document.getElementById('back-to-top');
+        if (scrollTop < 200) {
+            totopBtn.style.display = 'none';
+        } else {
+            totopBtn.style.display = 'inline';
+            totopBtn.addEventListener('click', backToTop, false);
+        }
+    }
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<div id="aplayer"></div>
+
+
+
+<script>
+    
+    const ap = new APlayer({
+        container: document.getElementById('aplayer'),
+        fixed: true,
+        listMaxHeight: '150px',
+        autoplay: false, 
+        
+        audio: [{
+            name: 'ニリンソウ',
+            artist: '細井聡司',
+            url: 'http://music.163.com/song/media/outer/url?id=26131699.mp3',
+            cover: 'http://p2.music.126.net/QeFAqq2BCI1-wVuJmkIf1Q==/109951169594773103.jpg',
+            
+        },
+        {
+            name: '一号线',
+            artist: 'sentive',
+            url: 'http://music.163.com/song/media/outer/url?id=4979707.mp3',
+            cover: 'http://p2.music.126.net/7gMxExa7fandCI8bTa923w==/6038517860027044.jpg',
+            
+        },
+        {
+            name: 'ぼくらの性',
+            artist: 'waniwave',
+            url: 'http://music.163.com/song/media/outer/url?id=1316376017.mp3',
+            cover: 'http://p1.music.126.net/G9lpFn-H6RVxXBq08yR1jw==/109951163599186837.jpg',
+        },
+        {
+            name: 'Will&Wish',
+            artist: 'VISUAL ARTS / Key',
+            url: 'http://music.163.com/song/media/outer/url?id=760261.mp3',
+            cover: 'http://p1.music.126.net/kNmpnQ7drDI907MK5UqIGg==/109951169976604747.jpg',
+        },
+        {
+            name: 'スカーレット',
+            artist: '上松範康',
+            url: 'http://music.163.com/song/media/outer/url?id=4966665.mp3',
+            cover: 'http://p1.music.126.net/Ao2d9Ra6ozw744eXDfJTWw==/6037418348408516.jpg',
+        },
+        {
+            name: 'Sentence know',
+            artist: '金閉開羅巧夢',
+            url: 'http://music.163.com/song/media/outer/url?id=1297493055.mp3',
+            cover: 'http://p1.music.126.net/Y0QweHGIS5RygOrDDkBA8Q==/109951163433040387.jpg',
+        },
+        {
+            name: '秋空',
+            artist: '立花泰彦',
+            url: 'http://music.163.com/song/media/outer/url?id=4942739.mp3',
+            cover: 'http://p1.music.126.net/GdfyiyCwC_tRqrt5_5drvQ==/109951169908597426.jpg',
+        },
+        {
+            name: '花咲くとき',
+            artist: '母里治樹',
+            url: 'http://music.163.com/song/media/outer/url?id=4928392.mp3',
+            cover: 'http://p2.music.126.net/ZXlNy_T38wBh2Og07PK82Q==/6636652186131628.jpg',
+        },
+        {
+            name: '爱之梦',
+            artist: 'Franz Liszt',
+            url: 'http://music.163.com/song/media/outer/url?id=5276814.mp3',
+            cover: 'http://p2.music.126.net/UTrFxVAoq-Qh50dB_M74dw==/51677046522530.jpg',
+        },
+        {
+            name: '夏の大三角',
+            artist: 'ryo (supercell)',
+            url: 'http://music.163.com/song/media/outer/url?id=4937375.mp3',
+            cover: 'http://p2.music.126.net/3rtl6iK4Cue6mhE02ZNj2A==/109951166171557761.jpg',
+        },
+        {
+            name: 'SABBATH',
+            artist: '川越好博',
+            url: 'http://music.163.com/song/media/outer/url?id=872591.mp3',
+            cover: 'http://p2.music.126.net/HE4s2pCDfHqOteYGJEZbXQ==/4459619162262116.jpg',
+        },
+        {
+            name: '冬の欠片',
+            artist: 'MANYO',
+            url: 'http://music.163.com/song/media/outer/url?id=1817109134.mp3',
+            cover: 'http://p1.music.126.net/bU_UznrJaqyaSbaaQFZCKw==/109951165687192876.jpg',
+        },
+        {
+            name: "Sylvia's theme",
+            artist: "水月陵",
+            url: "http://music.163.com/song/media/outer/url?id=551339061.mp3",
+            cover: "http://p1.music.126.net/ViKKxwreVuX1_VGzUmVxfQ==/109951163237784083.jpg",
+        },
+        {
+            name: "悲愴",
+            artist: "Metomate",
+            url: "http://music.163.com/song/media/outer/url?id=1332469835.mp3",
+            cover: "http://p1.music.126.net/iJ6KYlqeLarOukzIIOvlHw==/109951163832691350.jpg",
+        },
+        {
+            name: "Radiance",
+            artist: "細井聡司",
+            url: "http://music.163.com/song/media/outer/url?id=26131692.mp3",
+            cover: "http://p1.music.126.net/QeFAqq2BCI1-wVuJmkIf1Q==/109951169594773103.jpg",
+        },
+        {
+            name: "リベラリタス島嶼群/夜",
+            artist: "工藤ともり/山中裕代",
+            url: "http://music.163.com/song/media/outer/url?id=565975070.mp3",
+            cover: "http://p1.music.126.net/Y8uzZx4RMSHuyKIUVXm6Lg==/109951163312431204.jpg",
+        },
+        {
+            name: "ミニBGM集 「夢色キャンバス」",
+            artist: "藤田淳平",
+            url: "http://music.163.com/song/media/outer/url?id=34045492.mp3",
+            cover: "http://p1.music.126.net/85kjpdXNZvFjuTrc1-hLPw==/7699879931616084.jpg",
+        },
+        {
+            name: "リベラリタス島嶼群",
+            artist: "工藤ともり/山中裕代",
+            url: "http://music.163.com/song/media/outer/url?id=565841120.mp3",
+            cover: "http://p1.music.126.net/Y8uzZx4RMSHuyKIUVXm6Lg==/109951163312431204.jpg",
+        },
+        {
+            name: "縁",
+            artist: "折戸伸治",
+            url: "http://music.163.com/song/media/outer/url?id=28151043.mp3",
+            cover: "http://p2.music.126.net/0I_RK7PsmyjbdPVmQ96SjQ==/109951169869394319.jpg",
+        },
+        {
+            name: "夏の子守歌",
+            artist: "VISUAL ARTS / Key",
+            url: "http://music.163.com/song/media/outer/url?id=1311319919.mp3",
+            cover: "http://p1.music.126.net/MVWKZCUCNQocuhMRBpL-Qw==/109951169976613728.jpg",
+        },
+        {
+            name: "OST-06",
+            artist: "Neko17",
+            url: "http://music.163.com/song/media/outer/url?id=1831543991.mp3",
+            cover: "http://p2.music.126.net/roD41gwWHTaHeAbOyTjFFQ==/109951165826019058.jpg",
+        },
+    ]
+    });
+</script>
+
+
+<script>
+    
+
+    window.onbeforeunload = () => {
+        
+        const playInfo = {
+            index: ap.list.index,
+            currentTime: ap.audio.currentTime,
+            paused: ap.paused
+        };
+        localStorage.setItem("playInfo", JSON.stringify(playInfo));
+    };
+
+    
+
+    window.onload = () => {
+        
+        const playInfo = JSON.parse(localStorage.getItem("playInfo"));
+        if (!playInfo) {
+            return;
+        }
+        
+        ap.list.switch(playInfo.index);
+        
+        setTimeout(() => {
+            
+            ap.seek(playInfo.currentTime);
+            
+            if (!playInfo.paused) {
+                ap.play()
+            }
+        }, 500);
+    };
+</script>
+
+    </body>
+</html>
