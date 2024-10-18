@@ -7,7 +7,165 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Kotori🕊️</copyright>
-        <lastBuildDate>Wed, 16 Oct 2024 00:48:39 +0800</lastBuildDate><atom:link href="https://kotoriforest.us.kg/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 18 Oct 2024 12:21:54 +0800</lastBuildDate><atom:link href="https://kotoriforest.us.kg/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>在IDEA中使用JUnit</title>
+        <link>https://kotoriforest.us.kg/p/1018-%E5%9C%A8idea%E4%B8%AD%E4%BD%BF%E7%94%A8junit/</link>
+        <pubDate>Fri, 18 Oct 2024 12:21:54 +0800</pubDate>
+        
+        <guid>https://kotoriforest.us.kg/p/1018-%E5%9C%A8idea%E4%B8%AD%E4%BD%BF%E7%94%A8junit/</guid>
+        <description>&lt;img src="https://kotoriforest.us.kg/p/1018-%E5%9C%A8idea%E4%B8%AD%E4%BD%BF%E7%94%A8junit/cover.png" alt="Featured image of post 在IDEA中使用JUnit" /&gt;&lt;h2 id=&#34;下载并加载-jar-包&#34;&gt;下载并加载 jar 包
+&lt;/h2&gt;&lt;p&gt;这里我们使用的是 &lt;strong&gt;JUnit4&lt;/strong&gt;，首先我们先进入&lt;a class=&#34;link&#34; href=&#34;https://junit.org/junit4/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34; style=&#34;color:#42b983&#34;
+    &gt;官网&lt;/a&gt;，然后拉到下方点击红框中的内容。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.postimg.cc/y60SXrDN/QQ-20241018010220.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;QQ-20241018010220.png&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.postimg.cc/1XSXjs83/QQ-20241018011428.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;我们先进入 &lt;strong&gt;①&lt;/strong&gt; 下载&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2024/10/18/ohO2syLJ4xFDtAp.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;然后再进入 &lt;strong&gt;②&lt;/strong&gt; 下载&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.postimg.cc/C1TxRSHs/QQ-20241018012313.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;如果你没有办法进入GitHub，你可以选择下载一个 &lt;a class=&#34;link&#34; href=&#34;https://steampp.net/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34; style=&#34;color:#42b983&#34;
+    &gt;Steam++&lt;/a&gt;，它提供免费的Github加速功能。或者直接下载&lt;a class=&#34;link&#34; href=&#34;https://wwpa.lanzouo.com/i2YuV2csplze&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34; style=&#34;color:#42b983&#34;
+    &gt;我下好的jar包&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;下载完毕之后，你可以把 jar 包随便放在一个地方，但是我推荐新建一个文件夹。然后把所有的 jar 包都放在一起，这样可以方便管理。&lt;/p&gt;
+&lt;p&gt;然后按下图导入 JUnit 库&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2024/10/18/UhuQ6OZR4C7qrFw.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2024/10/18/bdzaHTiE1Kue7yr.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;这里可以选择单独选择 jar 包，也可以选择一个文件夹，IDEA 会自动读取文件夹下 jar 包，这也是我推荐新建一个文件夹来存放 jar 包的原因。&lt;/p&gt;
+&lt;p&gt;然后选择要使用这个库的模块，这样的话，被选择的模块就可以使用 JUnit 了。&lt;/p&gt;
+&lt;p&gt;如果你还想在其他模块使用 JUnit&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2024/10/18/n84BvQcCej5oFWz.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;然后选择 JUnit 所对应的库就可以了。&lt;/p&gt;
+&lt;mark&gt;有一点需要注意的是，在添加成功后，一定要把作用改为编译，否则在编译时就无法使用 JUnit。&lt;/mark&gt;
+&lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2024/10/18/Ho8O2NnGKuTAm4f.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;使用-junit&#34;&gt;使用 JUnit
+&lt;/h2&gt;&lt;p&gt;如何使用我就不具体细说了，可以自己参考&lt;a class=&#34;link&#34; href=&#34;https://junit.org/junit4/javadoc/latest/index.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34; style=&#34;color:#42b983&#34;
+    &gt;官方文档&lt;/a&gt;，我这里就提一点细节。&lt;/p&gt;
+&lt;h3 id=&#34;test的使用条件&#34;&gt;@Test的使用条件
+&lt;/h3&gt;&lt;p&gt;JUnit4版本，要求@Test标记的方法必须满足如下要求：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;所在的类必须是 public 的，非抽象的，包含唯一的无参构造器。&lt;/li&gt;
+&lt;li&gt;@Test 标记的方法本身必须是 public ，非抽象的，非静态的 void 无返回值， 无参数的。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;JUnitTest&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nd&#34;&gt;@Test&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;test01&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;TestJUnit.test01&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nd&#34;&gt;@Test&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;test02&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;TestJUnit.test02&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nd&#34;&gt;@Test&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;test03&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;TestJUnit.test03&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;@Test 修饰的方法在行号旁会有一个小箭头，点击那个小箭头就可以单独运行这个方法。&lt;/p&gt;
+&lt;h3 id=&#34;让单元测试支持控制台输入&#34;&gt;让单元测试支持控制台输入
+&lt;/h3&gt;&lt;p&gt;默认情况下，在单元测试方法中使用Scanner时，并不能实现控制台数据的输入（会提示此视图只读）。需要做如下设置：&lt;/p&gt;
+&lt;p&gt;在 idea64.exe.vmoptions 配置文件中加入下面一行设置&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;mark&gt;-Deditable.java.test.console=true&lt;/mark&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;然后重启 IDEA 就可以生效了。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2024/10/18/8vxFS6E9z1kXKNh.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2024/10/18/cyDkNFAHCYiJqeh.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>简单介绍枚举和注解</title>
         <link>https://kotoriforest.us.kg/p/1016-%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E6%9E%9A%E4%B8%BE%E5%92%8C%E6%B3%A8%E8%A7%A3/</link>
         <pubDate>Wed, 16 Oct 2024 00:48:39 +0800</pubDate>

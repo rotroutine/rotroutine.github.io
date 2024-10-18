@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" Info: 待完成\nTo use this feature, add links section to frontmatter.\nThis page&rsquo;s frontmatter:\n1 2 3 4 5 6 7 8 9 links: - title: GitHub description: GitHub is the world&#39;s largest software development platform. website: https://github.com image: https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png - title: TypeScript description: TypeScript is a typed superset of JavaScript that compiles to plain JavaScript. website: https://www.typescriptlang.org image: ts-logo-128.jpg image field accepts both local and external images.\n">
-<title>友情链接</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="下载并加载 jar 包 这里我们使用的是 JUnit4，首先我们先进入官网，然后拉到下方点击红框中的内容。\n我们先进入 ① 下载\n然后再进入 ② 下载\n如果你没有办法进入GitHub，你可以选择下载一个 Steam++，它提供免费的Github加速功能。或者直接下载我下好的jar包。\n">
+<title>在IDEA中使用JUnit</title>
 
-<link rel='canonical' href='https://kotoriforest.us.kg/%E5%8F%8B%E6%83%85%E9%93%BE%E6%8E%A5/'>
+<link rel='canonical' href='https://kotoriforest.us.kg/p/1018-%E5%9C%A8idea%E4%B8%AD%E4%BD%BF%E7%94%A8junit/'>
 
-<link rel="stylesheet" href="/scss/style.min.45150963a8bc779bc42cd53d7096be786c88864e3a18e5b72ef6ebbbe5d02a76.css"><meta property='og:title' content="友情链接">
-<meta property='og:description' content=" Info: 待完成\nTo use this feature, add links section to frontmatter.\nThis page&rsquo;s frontmatter:\n1 2 3 4 5 6 7 8 9 links: - title: GitHub description: GitHub is the world&#39;s largest software development platform. website: https://github.com image: https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png - title: TypeScript description: TypeScript is a typed superset of JavaScript that compiles to plain JavaScript. website: https://www.typescriptlang.org image: ts-logo-128.jpg image field accepts both local and external images.\n">
-<meta property='og:url' content='https://kotoriforest.us.kg/%E5%8F%8B%E6%83%85%E9%93%BE%E6%8E%A5/'>
+<link rel="stylesheet" href="/scss/style.min.45150963a8bc779bc42cd53d7096be786c88864e3a18e5b72ef6ebbbe5d02a76.css"><meta property='og:title' content="在IDEA中使用JUnit">
+<meta property='og:description' content="下载并加载 jar 包 这里我们使用的是 JUnit4，首先我们先进入官网，然后拉到下方点击红框中的内容。\n我们先进入 ① 下载\n然后再进入 ② 下载\n如果你没有办法进入GitHub，你可以选择下载一个 Steam++，它提供免费的Github加速功能。或者直接下载我下好的jar包。\n">
+<meta property='og:url' content='https://kotoriforest.us.kg/p/1018-%E5%9C%A8idea%E4%B8%AD%E4%BD%BF%E7%94%A8junit/'>
 <meta property='og:site_name' content='鹅掌草の森'>
-<meta property='og:type' content='article'><meta property='article:section' content='Page' />
-<meta name="twitter:title" content="友情链接">
-<meta name="twitter:description" content=" Info: 待完成\nTo use this feature, add links section to frontmatter.\nThis page&rsquo;s frontmatter:\n1 2 3 4 5 6 7 8 9 links: - title: GitHub description: GitHub is the world&#39;s largest software development platform. website: https://github.com image: https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png - title: TypeScript description: TypeScript is a typed superset of JavaScript that compiles to plain JavaScript. website: https://www.typescriptlang.org image: ts-logo-128.jpg image field accepts both local and external images.\n">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='JavaSE' /><meta property='article:published_time' content='2024-10-18T12:21:54&#43;08:00'/><meta property='article:modified_time' content='2024-10-18T12:21:54&#43;08:00'/><meta property='og:image' content='https://kotoriforest.us.kg/p/1018-%E5%9C%A8idea%E4%B8%AD%E4%BD%BF%E7%94%A8junit/cover.png' />
+<meta name="twitter:title" content="在IDEA中使用JUnit">
+<meta name="twitter:description" content="下载并加载 jar 包 这里我们使用的是 JUnit4，首先我们先进入官网，然后拉到下方点击红框中的内容。\n我们先进入 ① 下载\n然后再进入 ② 下载\n如果你没有办法进入GitHub，你可以选择下载一个 Steam++，它提供免费的Github加速功能。或者直接下载我下好的jar包。\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://kotoriforest.us.kg/p/1018-%E5%9C%A8idea%E4%B8%AD%E4%BD%BF%E7%94%A8junit/cover.png' />
     <link rel="shortcut icon" href="/favicon.png" />
 <style>
     :root {
@@ -52,262 +53,92 @@
 <div class="container main-container flex on-phone--column extended">
 
 
-        <aside class="sidebar left-sidebar sticky ">
-    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
-        <span class="hamburger-box">
-            <span class="hamburger-inner"></span>
-        </span>
-    </button>
+        <div id="article-toolbar" style="position: sticky;top: 5px;z-index: 1000;">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
 
-    <header>
-        
-            
-            <figure class="site-avatar">
-                <a href="/">
-                
-                    
-                    
-                    
-                        
-                        <img src="/img/avatar_hu3539257130320411285.png" width="300"
-                            height="300" class="site-logo" loading="lazy" alt="Avatar">
-                    
-                
-                </a>
-                
-                    <span class="emoji">🕊️</span>
-                
-            </figure>
-            
-        
-        
-        <div class="site-meta">
-            <h1 class="site-name"><a href="/">鹅掌草の森</a></h1>
-            <h2 class="site-description">没什么不好吧🥰</h2>
+
+
+                <span>返回</span>
+            </a>
         </div>
-    </header><ol class="menu-social">
-            
-                <li>
-                    <a 
-                        href='https://github.com/rotroutine'
-                        target="_blank"
-                        title="GitHub"
-                        rel="me"
-                    >
-                        
-                        
-                            <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1727579179032" class="icon" viewBox="0 0 1024 1024" fill="currentColor" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5064" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24"><path d="M251.008 795.861333c-12.8-8.533333-23.808-19.413333-36.693333-34.816a2146.986667 2146.986667 0 0 1-19.882667-24.704c-19.754667-24.533333-32.213333-35.84-45.098667-40.490666a42.666667 42.666667 0 0 1 28.842667-80.341334c32.085333 11.52 53.802667 31.36 83.072 67.754667-4.010667-4.992 14.506667 18.218667 18.474667 22.997333 8.106667 9.685333 14.08 15.573333 18.773333 18.688 8.704 5.845333 25.045333 8.362667 49.066667 5.973334 0.981333-16.298667 4.010667-32.128 8.618666-46.72C229.546667 653.226667 157.866667 571.562667 157.866667 411.306667c0-52.906667 15.786667-100.522667 45.141333-140.458667-9.301333-38.144-7.893333-84.266667 12.885333-136.192a42.666667 42.666667 0 0 1 26.88-24.832c3.456-1.024 5.418667-1.493333 8.874667-2.005333 34.261333-5.248 82.645333 7.253333 145.706667 46.762666A500.522667 500.522667 0 0 1 512 141.44c38.912 0 77.568 4.437333 114.517333 13.141333 63.018667-39.808 111.488-52.309333 146.005334-46.762666 3.626667 0.554667 6.698667 1.28 9.301333 2.133333a42.666667 42.666667 0 0 1 26.282667 24.746667c20.778667 51.882667 22.186667 98.005333 12.885333 136.106666 29.482667 39.936 45.141333 87.253333 45.141333 140.501334 0 160.298667-71.424 241.706667-198.058666 272.725333 5.333333 17.706667 8.106667 37.504 8.106666 58.88a12820.992 12820.992 0 0 1-0.512 115.882667 42.666667 42.666667 0 0 1-0.810666 83.541333c-48.597333 9.728-84.608-22.698667-84.608-65.066667l0.085333-19.029333 0.213333-30.08c0.213333-30.208 0.298667-57.088 0.298667-85.248 0-29.738667-7.808-49.152-18.133333-58.026667-28.202667-24.32-13.909333-70.613333 23.04-74.752 126.592-14.208 185.045333-63.232 185.045333-198.826666 0-40.746667-13.312-74.410667-38.954667-102.570667a42.666667 42.666667 0 0 1-8.106666-44.586667c7.082667-17.664 10.112-40.832 4.096-68.864l-0.426667 0.128c-20.949333 5.930667-47.36 18.773333-79.274667 40.490667a42.666667 42.666667 0 0 1-35.541333 5.76A410.709333 410.709333 0 0 0 512 226.773333c-37.973333 0-75.605333 5.077333-110.592 14.933334a42.666667 42.666667 0 0 1-35.413333-5.717334c-32.085333-21.632-58.624-34.432-79.701334-40.405333-6.144 27.861333-3.114667 50.944 3.925334 68.565333a42.666667 42.666667 0 0 1-8.064 44.586667C256.682667 336.64 243.2 370.944 243.2 411.306667c0 135.338667 58.496 184.661333 184.405333 198.826666 36.906667 4.138667 51.242667 50.218667 23.210667 74.581334-8.192 7.168-18.304 31.232-18.304 58.197333v134.4c0 42.069333-35.626667 73.6-83.626667 65.194667a42.666667 42.666667 0 0 1-1.706666-83.712v-42.24c-38.826667 2.602667-70.912-3.754667-96.170667-20.693334z" p-id="5065"></path></svg>
-                        
-                    </a>
-                </li>
-            
-                <li>
-                    <a 
-                        href='https://space.bilibili.com/111124373'
-                        target="_blank"
-                        title="BiliBili"
-                        rel="me"
-                    >
-                        
-                        
-                            <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1727578760801" class="icon" viewBox="0 0 1024 1024" fill="currentColor" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2117" width="24" height="24" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M306.005333 117.632L444.330667 256h135.296l138.368-138.325333a42.666667 42.666667 0 1 1 60.373333 60.373333l-78.037333 77.952L789.333333 256A149.333333 149.333333 0 0 1 938.666667 405.333333v341.333334a149.333333 149.333333 0 0 1-149.333334 149.333333h-554.666666A149.333333 149.333333 0 0 1 85.333333 746.666667v-341.333334A149.333333 149.333333 0 0 1 234.666667 256h88.96L245.632 177.962667a42.666667 42.666667 0 0 1 60.373333-60.373334zM789.333333 341.333333h-554.666666a64 64 0 0 0-63.701334 57.856L170.666667 405.333333v341.333334a64 64 0 0 0 57.856 63.701333L234.666667 810.666667h554.666666a64 64 0 0 0 63.701334-57.813334L853.333333 746.666667v-341.333334A64 64 0 0 0 789.333333 341.333333zM341.333333 469.333333a42.666667 42.666667 0 0 1 42.666667 42.666667v85.333333a42.666667 42.666667 0 1 1-85.333333 0v-85.333333a42.666667 42.666667 0 0 1 42.666666-42.666667z m341.333334 0a42.666667 42.666667 0 0 1 42.666666 42.666667v85.333333a42.666667 42.666667 0 1 1-85.333333 0v-85.333333a42.666667 42.666667 0 0 1 42.666667-42.666667z" p-id="2118"></path></svg>
-                        
-                    </a>
-                </li>
-            
-                <li>
-                    <a 
-                        href='mailto:rotroutine@outlook.com'
-                        target="_blank"
-                        title="Email"
-                        rel="me"
-                    >
-                        
-                        
-                            <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1727579713507" class="icon" viewBox="0 0 1024 1024" fill="currentColor" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5640" width="24" height="24" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M938.666667 256c0-46.933333-38.4-85.333333-85.333334-85.333333H170.666667c-46.933333 0-85.333333 38.4-85.333334 85.333333v512c0 46.933333 38.4 85.333333 85.333334 85.333333h682.666666c46.933333 0 85.333333-38.4 85.333334-85.333333V256z m-85.333334 0l-341.333333 213.333333-341.333333-213.333333h682.666666z m0 512H170.666667V341.333333l341.333333 213.333334 341.333333-213.333334v426.666667z" p-id="5641"></path></svg>
-                        
-                    </a>
-                </li>
-            
-                <li>
-                    <a 
-                        href='/index.xml'
-                        target="_blank"
-                        title="RSS"
-                        rel="me"
-                    >
-                        
-                        
-                            <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1727579880120" class="icon" viewBox="0 0 1024 1024" fill="currentColor" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6716" width="24" height="24" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M128 725.333333a170.666667 170.666667 0 0 1 170.666667 170.666667H128v-170.666667z m0-298.666666c259.2 0 469.333333 210.133333 469.333333 469.333333h-85.333333a384 384 0 0 0-384-384v-85.333333z m0-298.666667c424.149333 0 768 343.850667 768 768h-85.333333c0-377.045333-305.621333-682.666667-682.666667-682.666667V128z" p-id="6717"></path></svg>
-                        
-                    </a>
-                </li>
-            
-        </ol><ol class="menu" id="main-menu">
-        
-        
-        
-        <li >
-            <a href='/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <polyline points="5 12 3 12 12 3 21 12 19 12" />
-  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
-  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
-</svg>
-
-
-
-                
-                <span>主页</span>
-            </a>
-        </li>
-        
-        
-        <li >
-            <a href='/%E5%85%B3%E4%BA%8E/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="12" cy="7" r="4" />
-  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-</svg>
-
-
-
-                
-                <span>关于</span>
-            </a>
-        </li>
-        
-        
-        <li >
-            <a href='/archives/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <rect x="3" y="4" width="18" height="4" rx="2" />
-  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
-  <line x1="10" y1="12" x2="14" y2="12" />
-</svg>
-
-
-
-                
-                <span>归档</span>
-            </a>
-        </li>
-        
-        
-        <li >
-            <a href='/search/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="10" cy="10" r="7" />
-  <line x1="21" y1="21" x2="15" y2="15" />
-</svg>
-
-
-
-                
-                <span>搜索</span>
-            </a>
-        </li>
-        
-        
-        <li >
-            <a href='/%E6%A0%91%E6%B4%9E/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-wood" wwidth="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M12 5.5m-6 0a6 2.5 0 1 0 12 0a6 2.5 0 1 0 -12 0" />
-  <path d="M18 5.5v4.626a1.415 1.415 0 0 1 1.683 2.18l-.097 .108l-1.586 1.586v4c0 1.61 -2.54 2.925 -5.725 3l-.275 0c-3.314 0 -6 -1.343 -6 -3v-2l-1.586 -1.586a1.414 1.414 0 0 1 1.586 -2.287v-6.627" />
-  <path d="M10 12.5v1.5" />
-  <path d="M14 16v1" />
-</svg>
-                
-                <span>树洞</span>
-            </a>
-        </li>
-        
-        
-        <li  class='current' >
-            <a href='/%E5%8F%8B%E6%83%85%E9%93%BE%E6%8E%A5/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
-  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
-</svg>
-
-
-
-                
-                <span>友情链接</span>
-            </a>
-        </li>
-        
-        <li class="menu-bottom-section">
-            <ol class="menu">
-
-                
-                
-                <li id="dark-mode-toggle">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-sun-high" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M14.828 14.828a4 4 0 1 0 -5.656 -5.656a4 4 0 0 0 5.656 5.656z" />
-  <path d="M6.343 17.657l-1.414 1.414" />
-  <path d="M6.343 6.343l-1.414 -1.414" />
-  <path d="M17.657 6.343l1.414 -1.414" />
-  <path d="M17.657 17.657l1.414 1.414" />
-  <path d="M4 12h-2" />
-  <path d="M12 4v-2" />
-  <path d="M20 12h2" />
-  <path d="M12 20v2" />
-</svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-moon-stars" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
-  <path d="M17 4a2 2 0 0 0 2 2a2 2 0 0 0 -2 2a2 2 0 0 0 -2 -2a2 2 0 0 0 2 -2" />
-  <path d="M19 11h2m-1 -1v2" />
-</svg>
-                    <span>暗色模式</span>
-                </li>
-                
-
-            </ol>
-        </li>
-    </ol>
-</aside>
-
     
 
-    
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#下载并加载-jar-包">下载并加载 jar 包</a></li>
+    <li><a href="#使用-junit">使用 JUnit</a>
+      <ol>
+        <li><a href="#test的使用条件">@Test的使用条件</a></li>
+        <li><a href="#让单元测试支持控制台输入">让单元测试支持控制台输入</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+
+
+
+            
+        
+    </aside>
+
 
             <main class="main full-width">
-    <article class="main-article">
+    <article class="has-image main-article">
     <header class="article-header">
+        <div class="article-image">
+            <a href="/p/1018-%E5%9C%A8idea%E4%B8%AD%E4%BD%BF%E7%94%A8junit/">
+                <img src="/p/1018-%E5%9C%A8idea%E4%B8%AD%E4%BD%BF%E7%94%A8junit/cover_hu4910382035201826058.png"
+                        srcset="/p/1018-%E5%9C%A8idea%E4%B8%AD%E4%BD%BF%E7%94%A8junit/cover_hu4910382035201826058.png 800w, /p/1018-%E5%9C%A8idea%E4%B8%AD%E4%BD%BF%E7%94%A8junit/cover_hu2914442709902150931.png 1600w"
+                        width="800" 
+                        height="600" 
+                        loading="lazy"
+                        alt="Featured image of post 在IDEA中使用JUnit" />
+                
+            </a>
+        </div>
+    
 
     <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E7%BC%96%E7%A8%8B%E7%9F%A5%E8%AF%86/" style="background-color: #2a9d8f; color: #fff;">
+                编程知识
+            </a>
+        
+    </header>
     
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/%E5%8F%8B%E6%83%85%E9%93%BE%E6%8E%A5/">友情链接</a>
+            <a href="/p/1018-%E5%9C%A8idea%E4%B8%AD%E4%BD%BF%E7%94%A8junit/">在IDEA中使用JUnit</a>
         </h2>
     
         
@@ -318,6 +149,19 @@
     
     
     <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2024-10-18</time>
+            </div>
         
     
         
@@ -332,7 +176,7 @@
 
                 <time class="article-words">
                     
-                    约1分钟，共70字
+                    约3分钟，共675字
                 </time>
             </div>
         
@@ -340,14 +184,14 @@
         <div>
             <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1727968664826" class="icon" viewBox="0 0 1024 1024" fill="currentColor" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9666" width="24" height="24" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M512.048 736a224 224 0 1 1 0-448 224 224 0 0 1 0 448z m0-64a160 160 0 1 0 0-320 160 160 0 0 0 0 320z m0 192c-188.8 0-357.824-112.768-506.56-334.144a32 32 0 0 1 0-35.712C154.288 272.64 323.248 160 512.048 160s357.824 112.704 506.56 334.08a32 32 0 0 1 0 35.776c-148.736 221.44-317.76 334.08-506.56 334.08z m0-64c159.808 0 306.688-94.784 441.216-288C818.736 318.72 671.856 224 512.048 224S205.36 318.784 70.832 512C205.36 705.216 352.24 800 512.048 800z" fill="#767676" p-id="9667"></path></svg>
             <time class="article-pageview">
-                <span class="waline-pageview-count" data-path="/%E5%8F%8B%E6%83%85%E9%93%BE%E6%8E%A5/">0</span> 次浏览
+                <span class="waline-pageview-count" data-path="/p/1018-%E5%9C%A8idea%E4%B8%AD%E4%BD%BF%E7%94%A8junit/">0</span> 次浏览
             </time>
         </div>
     
         <div>
             <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1727968529297" class="icon" viewBox="0 0 1024 1024" fill="currentColor" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8132" width="24" height="24" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M938.666667 504.533333A128 128 0 0 0 810.666667 384v-135.466667A128 128 0 0 0 682.666667 128H205.866667A128 128 0 0 0 85.333333 256v339.626667a128 128 0 0 0 128 120.32v69.333333a53.333333 53.333333 0 0 0 85.333334 37.333333l79.36-59.52 5.973333 4.906667a128 128 0 0 0 85.333333 32.426667h155.306667l98.56 82.346666 4.053333 2.986667A53.333333 53.333333 0 0 0 810.666667 842.666667v-41.386667h7.466666a128 128 0 0 0 120.533334-128v-168.746667z m-640 211.413334v-21.333334a64 64 0 0 0-64-64h-21.333334a42.666667 42.666667 0 0 1-42.666666-42.666666V256a42.666667 42.666667 0 0 1 42.666666-42.666667h469.333334a42.666667 42.666667 0 0 1 42.666666 42.666667v128H469.333333a128 128 0 0 0-128 128V683.733333zM853.333333 533.333333v139.946667a42.666667 42.666667 0 0 1-42.666666 42.666667h-21.333334a64 64 0 0 0-64 58.453333l-46.293333-38.613333a85.333333 85.333333 0 0 0-54.613333-19.84H469.333333a42.666667 42.666667 0 0 1-42.666666-42.666667V512a42.666667 42.666667 0 0 1 42.666666-42.666667h341.333334a42.666667 42.666667 0 0 1 42.666666 42.666667v21.333333z" p-id="8133" fill="#767676"></path></svg>
             <time class="article-comment">
-                <span class="waline-comment-count" data-path="/%E5%8F%8B%E6%83%85%E9%93%BE%E6%8E%A5/">0</span> 条评论
+                <span class="waline-comment-count" data-path="/p/1018-%E5%9C%A8idea%E4%B8%AD%E4%BD%BF%E7%94%A8junit/">0</span> 条评论
             </time>
         </div>
     </footer>
@@ -361,48 +205,189 @@
 
     <section class="article-content">
     
-    
-    
-    
-    
+<section class="toc toc--inline">
+    <h2 class="">目录</h2>
+    <div class="" >
+        <nav id="TableOfContents">
+  <ol>
+    <li><a href="#下载并加载-jar-包">下载并加载 jar 包</a></li>
+    <li><a href="#使用-junit">使用 JUnit</a>
+      <ol>
+        <li><a href="#test的使用条件">@Test的使用条件</a></li>
+        <li><a href="#让单元测试支持控制台输入">让单元测试支持控制台输入</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
 
+    </div>
+</section>
 
-<div class="notice notice-info" >
-    <div class="notice-title"><svg xmlns="http://www.w3.org/2000/svg" class="icon notice-icon" viewBox="0 0 512 512" fill="hsl(30, 80%, 70%)"><path d="M256 8a248 248 0 100 496 248 248 0 000-496zm0 110a42 42 0 110 84 42 42 0 010-84zm56 254c0 7-5 12-12 12h-88c-7 0-12-5-12-12v-24c0-7 5-12 12-12h12v-64h-12c-7 0-12-5-12-12v-24c0-7 5-12 12-12h64c7 0 12 5 12 12v100h12c7 0 12 5 12 12v24z"/></svg></div><p>Info: 待完成</p></div>
-
-<p>To use this feature, add <code>links</code> section to frontmatter.</p>
-<p>This page&rsquo;s frontmatter:</p>
+    
+    
+    
+    <h2 id="下载并加载-jar-包">下载并加载 jar 包
+</h2><p>这里我们使用的是 <strong>JUnit4</strong>，首先我们先进入<a class="link" href="https://junit.org/junit4/"  target="_blank" rel="noopener" style="color:#42b983"
+    >官网</a>，然后拉到下方点击红框中的内容。</p>
+<p><img src="https://i.postimg.cc/y60SXrDN/QQ-20241018010220.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="QQ-20241018010220.png"
+	
+	
+></p>
+<p><img src="https://i.postimg.cc/1XSXjs83/QQ-20241018011428.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>我们先进入 <strong>①</strong> 下载</p>
+<p><img src="https://s2.loli.net/2024/10/18/ohO2syLJ4xFDtAp.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>然后再进入 <strong>②</strong> 下载</p>
+<p><img src="https://i.postimg.cc/C1TxRSHs/QQ-20241018012313.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>如果你没有办法进入GitHub，你可以选择下载一个 <a class="link" href="https://steampp.net/"  target="_blank" rel="noopener" style="color:#42b983"
+    >Steam++</a>，它提供免费的Github加速功能。或者直接下载<a class="link" href="https://wwpa.lanzouo.com/i2YuV2csplze"  target="_blank" rel="noopener" style="color:#42b983"
+    >我下好的jar包</a>。</p>
+<p>下载完毕之后，你可以把 jar 包随便放在一个地方，但是我推荐新建一个文件夹。然后把所有的 jar 包都放在一起，这样可以方便管理。</p>
+<p>然后按下图导入 JUnit 库</p>
+<p><img src="https://s2.loli.net/2024/10/18/UhuQ6OZR4C7qrFw.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p><img src="https://s2.loli.net/2024/10/18/bdzaHTiE1Kue7yr.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>这里可以选择单独选择 jar 包，也可以选择一个文件夹，IDEA 会自动读取文件夹下 jar 包，这也是我推荐新建一个文件夹来存放 jar 包的原因。</p>
+<p>然后选择要使用这个库的模块，这样的话，被选择的模块就可以使用 JUnit 了。</p>
+<p>如果你还想在其他模块使用 JUnit</p>
+<p><img src="https://s2.loli.net/2024/10/18/n84BvQcCej5oFWz.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>然后选择 JUnit 所对应的库就可以了。</p>
+<mark>有一点需要注意的是，在添加成功后，一定要把作用改为编译，否则在编译时就无法使用 JUnit。</mark>
+<p><img src="https://s2.loli.net/2024/10/18/Ho8O2NnGKuTAm4f.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<h2 id="使用-junit">使用 JUnit
+</h2><p>如何使用我就不具体细说了，可以自己参考<a class="link" href="https://junit.org/junit4/javadoc/latest/index.html"  target="_blank" rel="noopener" style="color:#42b983"
+    >官方文档</a>，我这里就提一点细节。</p>
+<h3 id="test的使用条件">@Test的使用条件
+</h3><p>JUnit4版本，要求@Test标记的方法必须满足如下要求：</p>
+<ul>
+<li>所在的类必须是 public 的，非抽象的，包含唯一的无参构造器。</li>
+<li>@Test 标记的方法本身必须是 public ，非抽象的，非静态的 void 无返回值， 无参数的。</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">links</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l">GitHub</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l">GitHub is the world&#39;s largest software development platform.</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">website</span><span class="p">:</span><span class="w"> </span><span class="l">https://github.com</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l">TypeScript</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l">TypeScript is a typed superset of JavaScript that compiles to plain JavaScript.</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">website</span><span class="p">:</span><span class="w"> </span><span class="l">https://www.typescriptlang.org</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">ts-logo-128.jpg</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">JUnitTest</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Test</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">test01</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;TestJUnit.test01&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Test</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">test02</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;TestJUnit.test02&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Test</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">test03</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;TestJUnit.test03&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><p><code>image</code> field accepts both local and external images.</p>
+</div><p>@Test 修饰的方法在行号旁会有一个小箭头，点击那个小箭头就可以单独运行这个方法。</p>
+<h3 id="让单元测试支持控制台输入">让单元测试支持控制台输入
+</h3><p>默认情况下，在单元测试方法中使用Scanner时，并不能实现控制台数据的输入（会提示此视图只读）。需要做如下设置：</p>
+<p>在 idea64.exe.vmoptions 配置文件中加入下面一行设置</p>
+<p><strong><mark>-Deditable.java.test.console=true</mark></strong></p>
+<p>然后重启 IDEA 就可以生效了。</p>
+<p><img src="https://s2.loli.net/2024/10/18/8vxFS6E9z1kXKNh.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p><img src="https://s2.loli.net/2024/10/18/cyDkNFAHCYiJqeh.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
 
 </section>
 
 
     <footer class="article-footer">
     
+    <section class="article-tags">
+        
+            <a href="/tags/javase/">JavaSE</a>
+        
+    </section>
+
 
     
     <section class="article-copyright">
@@ -423,58 +408,186 @@
 </article>
 
     
-        <div class="article-list--compact links">
-    
-        <article>
-            <a href="https://github.com" target="_blank" rel="noopener">
-                <div class="article-details">
-                    <h2 class="article-title">GitHub</h2>
-                    <footer class="article-time">
-                        
-                            GitHub is the world&#39;s largest software development platform.
-                        
-                    </footer>
-                </div>
-        
-                
-                    
-                    
-                    <div class="article-image">
-                        <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" loading="lazy">
-                    </div>
-                
-            </a>
-        </article>
-    
-        <article>
-            <a href="https://www.typescriptlang.org" target="_blank" rel="noopener">
-                <div class="article-details">
-                    <h2 class="article-title">TypeScript</h2>
-                    <footer class="article-time">
-                        
-                            TypeScript is a typed superset of JavaScript that compiles to plain JavaScript.
-                        
-                    </footer>
-                </div>
-        
-                
-                    
-                    
-                        
-                    
-                    <div class="article-image">
-                        <img src="/%E5%8F%8B%E6%83%85%E9%93%BE%E6%8E%A5/ts-logo-128.jpg" loading="lazy">
-                    </div>
-                
-            </a>
-        </article>
-    
-</div>
-    
 
     
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/1016-%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E6%9E%9A%E4%B8%BE%E5%92%8C%E6%B3%A8%E8%A7%A3/">
+        
+        
+            <div class="article-image">
+                <img src="/p/1016-%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E6%9E%9A%E4%B8%BE%E5%92%8C%E6%B3%A8%E8%A7%A3/cover.8663fd7f55753c0be945b2375fe4b3bf_hu17809481235312876967.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 简单介绍枚举和注解"
+                        data-key="1016 简单介绍枚举和注解" 
+                        data-hash="md5-hmP9f1V1PAvpRbI3X&#43;Szvw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">简单介绍枚举和注解</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/1014-%E6%8E%A5%E5%8F%A3interface/">
+        
+        
+            <div class="article-image">
+                <img src="/p/1014-%E6%8E%A5%E5%8F%A3interface/cover.4551380608a5f29f60282846edb60860_hu14205137450872704636.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 接口interface"
+                        data-key="1014 接口interface" 
+                        data-hash="md5-RVE4Bgil8p9gKChG7bYIYA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">接口interface</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
 
      
+    
+        
+    
+
+
+
+    
+        
+        
+        
+        
+        
+    
+    
+        
+    
+
+
+
+
+
+
+
+    
+
+    
+        
+        
+
+        
+    
+
+    
+        
+        
+
+        
+    
+
+    
+        
+        
+
+        
+    
+
+    
+        
+        
+
+        
+    
+
+    
+        
+        
+
+        
+    
+
+    
+        
+        
+
+        
+    
+
+    
+        
+        
+
+        
+    
+
+    
+        
+        
+
+        
+    
+
+    
+
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css"/>
+<div id="waline" class="waline-container"></div>
+<style>
+    .waline-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+        --waline-font-size: var(--article-font-size);
+    }
+    .waline-container .wl-count {
+        color: var(--card-text-color-main);
+    }
+
+    :root{
+   	       --waline-border-color:transparent;
+   	}      
+
+</style><script type="module">
+    import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
+    init({"comment":true,"dark":"html[data-scheme=\"dark\"]","el":"#waline","emoji":["https://npm.elemecdn.com/@waline/emojis@1.2.0/tieba","https://npm.elemecdn.com/@waline/emojis@1.1.0/bilibili","https://npm.elemecdn.com/@waline/emojis@1.1.0/bmoji","https://npm.elemecdn.com/@waline/emojis@1.2.0/qq"],"lang":"zh-CN","locale":{"admin":"小鸟小姐","placeholder":"欢迎留下宝贵的评论！请留下正确的邮箱以便有回复时进行邮箱提醒，请勿发布任何与本文章无关的内容。","reaction0":"非常有用","reaction1":"有帮助","reaction2":"一般","reaction3":"无帮助","reaction4":"看不懂","reaction5":"有错误","reactionTitle":"这篇文章对你有帮助吗？","sofa":"🍀~森林雅座一位️~🍀"},"pageview":true,"reaction":["https://npm.elemecdn.com/@waline/emojis@1.2.0/tieba/tieba_agree.png","https://npm.elemecdn.com/@waline/emojis@1.2.0/tieba/tieba_yum.png","https://npm.elemecdn.com/@waline/emojis@1.2.0/tieba/tieba_cute.png","https://npm.elemecdn.com/@waline/emojis@1.2.0/tieba/tieba_awkward.png","https://npm.elemecdn.com/@waline/emojis@1.2.0/tieba/tieba_doubt.png","https://npm.elemecdn.com/@waline/emojis@1.2.0/tieba/tieba_rage.png"],"requiredMeta":["nick"],"serverURL":"https://commentforest.us.kg"});
+</script>
+
     
 
     <footer class="site-footer">
