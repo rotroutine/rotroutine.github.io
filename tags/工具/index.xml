@@ -192,6 +192,10 @@
           &lt;td&gt;ctrl+alt+u&lt;/td&gt;
       &lt;/tr&gt;
       &lt;tr&gt;
+          &lt;td&gt;生成类的UML关系图&lt;/td&gt;
+          &lt;td&gt;ctrl+shift+alt+u&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
           &lt;td&gt;定位某行-go to line/column&lt;/td&gt;
           &lt;td&gt;ctrl+g&lt;/td&gt;
       &lt;/tr&gt;
