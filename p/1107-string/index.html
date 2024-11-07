@@ -1,0 +1,1745 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="介绍Java中的字符串类">
+<title>String</title>
+
+<link rel='canonical' href='https://kotoriforest.us.kg/p/1107-string/'>
+
+<link rel="stylesheet" href="/scss/style.min.e31e51a2a885a5fc5ca935abfcdd6b2737b9759bb0572c96fac5569c088180c4.css"><meta property='og:title' content="String">
+<meta property='og:description' content="介绍Java中的字符串类">
+<meta property='og:url' content='https://kotoriforest.us.kg/p/1107-string/'>
+<meta property='og:site_name' content='鹅掌草の森'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='JavaSE' /><meta property='article:published_time' content='2024-11-07T00:17:07&#43;08:00'/><meta property='article:modified_time' content='2024-11-07T00:17:07&#43;08:00'/><meta property='og:image' content='https://kotoriforest.us.kg/p/1107-string/cover.png' />
+<meta name="twitter:title" content="String">
+<meta name="twitter:description" content="介绍Java中的字符串类"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://kotoriforest.us.kg/p/1107-string/cover.png' />
+    <link rel="shortcut icon" href="/favicon.png" />
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-0VFE317C9L"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-0VFE317C9L');
+        }
+      </script><style>
+    :root {
+         
+        --sys-font-family: -apple-system, "PingFang SC", Georgia, 'Nimbus Roman No9 L', 'Hiragino Sans GB', 'Noto Serif SC', 'Microsoft Yahei', 'WenQuanYi Micro Hei', 'ST Heiti', sans-serif;
+        --code-font-family: "JetBrainsMono Regular", Menlo, Monaco, Consolas, "Courier New";
+        --article-font-family: -apple-system, "PingFang SC", var(--base-font-family);
+    }
+</style>
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended">
+
+
+        <div id="article-toolbar" style="position: sticky;top: 5px;z-index: 1000;">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>返回</span>
+            </a>
+        </div>
+    
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#不可变之字符序列string">不可变之字符序列String</a>
+      <ol>
+        <li><a href="#string的特性">String的特性</a></li>
+        <li><a href="#string的内存结构">String的内存结构</a></li>
+        <li><a href="#string-的常用-api">String 的常用 API</a>
+          <ol>
+            <li><a href="#构造器">构造器</a></li>
+            <li><a href="#string与其他结构间的转换">String与其他结构间的转换</a></li>
+            <li><a href="#常用方法">常用方法</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#可变之字符序列-stringbufferstringbuilder">可变之字符序列 StringBuffer、StringBuilder</a>
+      <ol>
+        <li><a href="#常用-api">常用 API</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+
+
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/1107-string/">
+                <img src="/p/1107-string/cover_hu11411078984121672371.png"
+                        srcset="/p/1107-string/cover_hu11411078984121672371.png 800w, /p/1107-string/cover_hu8838084354558574057.png 1600w"
+                        width="800" 
+                        height="450" 
+                        loading="lazy"
+                        alt="Featured image of post String" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E7%BC%96%E7%A8%8B%E7%9F%A5%E8%AF%86/" style="background-color: #2a9d8f; color: #fff;">
+                编程知识
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/1107-string/">String</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            介绍Java中的字符串类
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2024-11-07</time>
+            </div>
+        
+    
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-words">
+                    
+                    约22分钟，共4799字
+                </time>
+            </div>
+        
+    
+        <div>
+            <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1727968664826" class="icon" viewBox="0 0 1024 1024" fill="currentColor" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9666" width="24" height="24" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M512.048 736a224 224 0 1 1 0-448 224 224 0 0 1 0 448z m0-64a160 160 0 1 0 0-320 160 160 0 0 0 0 320z m0 192c-188.8 0-357.824-112.768-506.56-334.144a32 32 0 0 1 0-35.712C154.288 272.64 323.248 160 512.048 160s357.824 112.704 506.56 334.08a32 32 0 0 1 0 35.776c-148.736 221.44-317.76 334.08-506.56 334.08z m0-64c159.808 0 306.688-94.784 441.216-288C818.736 318.72 671.856 224 512.048 224S205.36 318.784 70.832 512C205.36 705.216 352.24 800 512.048 800z" fill="#767676" p-id="9667"></path></svg>
+            <time class="article-pageview">
+                <span class="waline-pageview-count" data-path="/p/1107-string/">0</span> 次浏览
+            </time>
+        </div>
+    
+        <div>
+            <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1727968529297" class="icon" viewBox="0 0 1024 1024" fill="currentColor" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8132" width="24" height="24" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M938.666667 504.533333A128 128 0 0 0 810.666667 384v-135.466667A128 128 0 0 0 682.666667 128H205.866667A128 128 0 0 0 85.333333 256v339.626667a128 128 0 0 0 128 120.32v69.333333a53.333333 53.333333 0 0 0 85.333334 37.333333l79.36-59.52 5.973333 4.906667a128 128 0 0 0 85.333333 32.426667h155.306667l98.56 82.346666 4.053333 2.986667A53.333333 53.333333 0 0 0 810.666667 842.666667v-41.386667h7.466666a128 128 0 0 0 120.533334-128v-168.746667z m-640 211.413334v-21.333334a64 64 0 0 0-64-64h-21.333334a42.666667 42.666667 0 0 1-42.666666-42.666666V256a42.666667 42.666667 0 0 1 42.666666-42.666667h469.333334a42.666667 42.666667 0 0 1 42.666666 42.666667v128H469.333333a128 128 0 0 0-128 128V683.733333zM853.333333 533.333333v139.946667a42.666667 42.666667 0 0 1-42.666666 42.666667h-21.333334a64 64 0 0 0-64 58.453333l-46.293333-38.613333a85.333333 85.333333 0 0 0-54.613333-19.84H469.333333a42.666667 42.666667 0 0 1-42.666666-42.666667V512a42.666667 42.666667 0 0 1 42.666666-42.666667h341.333334a42.666667 42.666667 0 0 1 42.666666 42.666667v21.333333z" p-id="8133" fill="#767676"></path></svg>
+            <time class="article-comment">
+                <span class="waline-comment-count" data-path="/p/1107-string/">0</span> 条评论
+            </time>
+        </div>
+    </footer>
+
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+<section class="toc toc--inline">
+    <h2 class="">目录</h2>
+    <div class="" >
+        <nav id="TableOfContents">
+  <ol>
+    <li><a href="#不可变之字符序列string">不可变之字符序列String</a>
+      <ol>
+        <li><a href="#string的特性">String的特性</a></li>
+        <li><a href="#string的内存结构">String的内存结构</a></li>
+        <li><a href="#string-的常用-api">String 的常用 API</a>
+          <ol>
+            <li><a href="#构造器">构造器</a></li>
+            <li><a href="#string与其他结构间的转换">String与其他结构间的转换</a></li>
+            <li><a href="#常用方法">常用方法</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#可变之字符序列-stringbufferstringbuilder">可变之字符序列 StringBuffer、StringBuilder</a>
+      <ol>
+        <li><a href="#常用-api">常用 API</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+
+    </div>
+</section>
+
+    
+    
+    
+    <h2 id="不可变之字符序列string">不可变之字符序列String
+</h2><h3 id="string的特性">String的特性
+</h3><ul>
+<li>
+<p><code>java.lang.String</code> 类代表字符串。Java 程序中所有的字符串文字（例如 <code>&quot;hello&quot;</code> ）都可以看作是此类的实例。</p>
+</li>
+<li>
+<p>字符串是常量，用双引号引起来表示。<strong>它们的值在创建之后不能更改</strong>。</p>
+</li>
+<li>
+<p>字符串 String 类型本身是 final 声明的，意味着<strong>我们不能继承 String</strong>。</p>
+</li>
+<li>
+<p>String 对象的字符内容是存储在一个字符数组 <code>value[]</code> 中的。<code>&quot;abc&quot;</code> 等效于<strong>char[] value = {&lsquo;h&rsquo;,&rsquo;e&rsquo;,&rsquo;l&rsquo;,&rsquo;l&rsquo;,&lsquo;o&rsquo;}</strong>。</p>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// jdk8中的部分String源码：</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="kd">class</span> <span class="nc">String</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">implements</span><span class="w"> </span><span class="n">java</span><span class="p">.</span><span class="na">io</span><span class="p">.</span><span class="na">Serializable</span><span class="p">,</span><span class="w"> </span><span class="n">Comparable</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">CharSequence</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/** The value is used for character storage. */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">value</span><span class="o">[]</span><span class="p">;</span><span class="w"> </span><span class="c1">// String 对象的字符内容存储在此数组中</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/** Cache the hash code for the string */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">hash</span><span class="p">;</span><span class="w"> </span><span class="c1">// Default to 0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>private 意味着外面无法直接获取字符数组，而且 String 没有提供 value 的 get 和 set 方法。</li>
+<li>final 意味着字符数组的引用不可改变，而且 String 也没有提供方法来修改 value 数组某个元素值。</li>
+<li>上述两个条件保证了 String 对象一旦被创建<code>内容</code>就是不可变的。<strong>一旦对字符串进行修改，就会产生新对象</strong>。</li>
+<li>Java 语言提供字符串串联符号 <code>+</code> ，以及将其他类型对象转换为字符串的特殊支持即 <code>toString()</code> 方法。</li>
+</ul>
+<p>在 JDK9 中，value 的类型从 char[] 变成了 byte[]</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="kd">class</span> <span class="nc">String</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">java</span><span class="p">.</span><span class="na">io</span><span class="p">.</span><span class="na">Serializable</span><span class="p">,</span><span class="w"> </span><span class="n">Comparable</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">CharSequence</span><span class="w"> </span><span class="p">{</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Stable</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="kt">byte</span><span class="o">[]</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 官方说明：</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// ... that most String objects contain only Latin-1 characters. Such characters require only one byte of storage, hence half of the space in the internal char arrays of such String objects is going unused.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 细节：</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// ... The new String class will store characters encoded either as ISO-8859-1/Latin-1 (one byte per character), or as UTF-16 (two bytes per character), based upon the contents of the string. The encoding flag will indicate which encoding is used.</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="string的内存结构">String的内存结构
+</h3><p><strong>直接通过字面量赋值：</strong></p>
+<div align="center"><img src="https://s2.loli.net/2024/11/07/q45oIPgvrLhujdD.png" /></div>
+<p><strong>通过 new 创建字符串：</strong></p>
+<div align="center"><img src="https://s2.loli.net/2024/11/07/Kg4GmRI8jvbZM6u.png" /></div>
+<p>如图所示String str = new String(&ldquo;Hello&rdquo;)可能同时会创建两个String对象，一个在堆中，一个在字符串常量池中（如果程序之前从未使用过或很久没有使用过&quot;Hello&quot;）。</p>
+<blockquote>
+<p>字符串常量池的位置：</p>
+<ul>
+<li><strong>Jdk1.6及之前：</strong> 有永久代，<code>运行时常量池</code><strong>在永久代</strong>，<strong>运行时常量池包含字符串常量池</strong>。</li>
+<li>**Jdk1.7：**有永久代，但已经逐步“去永久代”，<strong>字符串常量池从永久代里的运行时常量池分离到堆里</strong>。</li>
+<li><strong>Jdk1.8及之后：</strong> 无永久代，<strong>运行时常量池在元空间</strong>，<strong>字符串常量池里依然在堆里</strong>。</li>
+</ul>
+<p>如果想了解相关内容可以参考：<a class="link" href="https://blog.csdn.net/weixin_43134177/article/details/133364561"  target="_blank" rel="noopener" style="color:#42b983"
+    >java常量池详解</a> 或 <a class="link" href="https://blog.csdn.net/Prior_SX/article/details/123463430"  target="_blank" rel="noopener" style="color:#42b983"
+    >Java 常量池详解（一）字符串常量池</a></p>
+</blockquote>
+<p><strong>判断字符串对象是在堆中还是字符串常量池中：</strong></p>
+<ol>
+<li><strong>常量 + 常量</strong>：对象在常量池中，且常量池中不会存在相同内容的常量。<strong>这里的常量既包括了字面量，也包括了用 final 修饰的常量</strong>，后文的常量中也是这个意思。</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 形式1 字面量 + 字面量</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="s">&#34;Hello&#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&#34;World&#34;</span><span class="p">;</span><span class="w"> </span><span class="c1">// 常量池</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 形式2 常量 + 常量</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">String</span><span class="w"> </span><span class="n">prefix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;Hello&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">String</span><span class="w"> </span><span class="n">suffix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;World&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">prefix</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">suffix</span><span class="p">;</span><span class="w"> </span><span class="c1">// 常量池</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 形式3 字面量 + 常量 / 常量 + 字面量</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="s">&#34;Hello&#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">suffix</span><span class="p">;</span><span class="w"> </span><span class="c1">// 常量池</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">prefix</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&#34;World&#34;</span><span class="p">;</span><span class="w"> </span><span class="c1">// 常量池</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li><strong>调用intern() 方法得到的对象</strong>：在常量池中</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">String</span><span class="w"> </span><span class="n">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">String</span><span class="p">(</span><span class="s">&#34;string&#34;</span><span class="p">);</span><span class="w"> </span><span class="c1">// 堆</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">str</span><span class="p">.</span><span class="na">intern</span><span class="p">();</span><span class="w"> </span><span class="c1">// 常量池</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="s">&#34;string&#34;</span><span class="p">.</span><span class="na">intern</span><span class="p">();</span><span class="w"> </span><span class="c1">// 常量池</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>
+<p><strong>常量 + 变量 / 变量 + 常量</strong>：对象在堆中</p>
+</li>
+<li>
+<p><strong>concat() 方法拼接而成的字符串对象</strong>：在堆中。即使是两个常量相拼接也是在堆中，这与 concat() 的实现有关。</p>
+</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">concat</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">str</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">str</span><span class="p">.</span><span class="na">isEmpty</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// simpleConcat 底层就是在做拼接 然后将拼接的结果通过 new 返回</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">StringConcatHelper</span><span class="p">.</span><span class="na">simpleConcat</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="n">str</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="string-的常用-api">String 的常用 API
+</h3><h4 id="构造器">构造器
+</h4><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>API</th>
+          <th>描述</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>public String()</td>
+          <td>初始化新创建的 String 对象，使其表示空字符序列。</td>
+      </tr>
+      <tr>
+          <td>String(String original)</td>
+          <td>初始化一个新创建的 String 对象，使其表示一个与参数相同的字符序列；换句话说，新创建的字符串是该参数字符串的副本。</td>
+      </tr>
+      <tr>
+          <td>public String(char[] value)</td>
+          <td>通过当前参数中的字符数组来构造新的 String。</td>
+      </tr>
+      <tr>
+          <td>public String(char[] value,int offset, int count)</td>
+          <td>通过字符数组的一部分来构造新的 String。</td>
+      </tr>
+      <tr>
+          <td>public String(byte[] bytes)</td>
+          <td>通过使用平台的<strong>默认字符集</strong><code>解码</code>当前参数中的字节数组来构造新的 String。</td>
+      </tr>
+      <tr>
+          <td>public String(byte[] bytes,String charsetName)</td>
+          <td>通过使用<strong>指定的字符集</strong><code>解码</code>当前参数中的字节数组来构造新的 String。指定的字符集只用于解码过程，Java 中所有的字符在内存中都以 <code>Unicode</code> 编码保存，上同。</td>
+      </tr>
+  </tbody>
+</table></div>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 字面量定义方式：字符串常量对象</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">String</span><span class="w"> </span><span class="n">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;hello&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 构造器定义方式：无参构造</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">String</span><span class="w"> </span><span class="n">str1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">String</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 构造器定义方式：创建&#34;hello&#34;字符串常量的副本</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">String</span><span class="w"> </span><span class="n">str2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">String</span><span class="p">(</span><span class="s">&#34;hello&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 构造器定义方式：通过字符数组构造</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kt">char</span><span class="w"> </span><span class="n">chars</span><span class="o">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="sc">&#39;a&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;b&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;c&#39;</span><span class="p">,</span><span class="sc">&#39;d&#39;</span><span class="p">,</span><span class="sc">&#39;e&#39;</span><span class="p">};</span><span class="w">     
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">String</span><span class="w"> </span><span class="n">str3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">String</span><span class="p">(</span><span class="n">chars</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">String</span><span class="w"> </span><span class="n">str4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">String</span><span class="p">(</span><span class="n">chars</span><span class="p">,</span><span class="w"> </span><span class="n">0</span><span class="p">,</span><span class="w"> </span><span class="n">3</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 构造器定义方式：通过字节数组构造</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kt">byte</span><span class="w"> </span><span class="n">bytes</span><span class="o">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">97</span><span class="p">,</span><span class="w"> </span><span class="n">98</span><span class="p">,</span><span class="w"> </span><span class="n">99</span><span class="p">};</span><span class="w">     
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">String</span><span class="w"> </span><span class="n">str5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">String</span><span class="p">(</span><span class="n">bytes</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">String</span><span class="w"> </span><span class="n">str6</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">String</span><span class="p">(</span><span class="n">bytes</span><span class="p">,</span><span class="s">&#34;GBK&#34;</span><span class="p">);</span><span class="w"> </span><span class="c1">// 以 GBK 编码解码 以 Unicode 编码保存</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="string与其他结构间的转换">String与其他结构间的转换
+</h4><p><strong>字符串 -&gt; 基本数据类型、包装类：</strong></p>
+<ul>
+<li>Integer 包装类的 <code>public static int parseInt(String s)</code>：可以将由“数字”字符组成的字符串转换为整型。</li>
+<li>类似地，使用 java.lang 包中的 Byte、Short、Long、Float、Double 类调相应的 <code>parseXxx</code> 方法可以将由“数字”字符组成的字符串，转化为相应的基本数据类型。</li>
+</ul>
+<p><strong>基本数据类型、包装类 -&gt; 字符串：</strong></p>
+<ul>
+<li>调用 String 类的 <code>public String valueOf(int n)</code> 可将 int 型转换为字符串。</li>
+<li>相应的 valueOf(byte b)、valueOf(long l)、valueOf(float f)、valueOf(double d)、valueOf(boolean b) 可由参数的相应类型到字符串的转换。</li>
+<li>也可以通过<strong>将数据与空字符串拼接</strong>的方式将对应数据转为字符串类型。</li>
+</ul>
+<p><strong>字符数组 -&gt;  字符串：</strong></p>
+<ul>
+<li>String 类的构造器：<code>String(char[] value)</code> 和 <code>String(char[] value, int offset, int length)</code> 分别用字符数组中的全部字符和部分字符创建字符串对象。</li>
+</ul>
+<p><strong>字符串 -&gt;  字符数组：</strong></p>
+<ul>
+<li>
+<p><code>public char[] toCharArray()</code>：将字符串中的全部字符存放在一个字符数组中并返回该字符数组。</p>
+</li>
+<li>
+<p><code>public void getChars(int srcBegin, int srcEnd, char[] dst, int dstBegin)</code>：提供了将指定索引范围内的字符串存放到字符数组中的方法，这个<strong>字符数组需要使用者来提供</strong>。</p>
+</li>
+</ul>
+<p><strong>字符串 -&gt; 字节数组（编码）：</strong></p>
+<ul>
+<li><code>public byte[] getBytes()</code> ：使用平台的<strong>默认字符集</strong>将对应 String 编码为 byte 序列，并将结果存储到一个新的 byte 数组中。</li>
+<li><code>public byte[] getBytes(String charsetName)</code> ：使用<strong>指定的字符集</strong>将对应 String 编码为 byte 序列，并将结果存储到新的 byte 数组。</li>
+</ul>
+<p><strong>字节数组 -&gt; 字符串（解码）：</strong></p>
+<ul>
+<li><code>String(byte[] bytes)</code>：通过使用平台的<strong>默认字符集</strong>解码指定的 byte 数组，构造一个新的 String。</li>
+<li><code>String(byte[] bytes，int offset，int length)</code> ：用指定的字节数组的一部分，即从数组起始位置 offset 开始取 length 个字节使用<strong>默认字符集</strong>构造一个字符串对象。</li>
+<li><code>String(byte[] bytes, String charsetName)</code> 或 <code>String(byte[] bytes, int offset, int length ,String charsetName)</code>：按照指定的编码方式进行解码。</li>
+</ul>
+
+
+
+<div class="notice notice-tip" >
+    <div class="notice-title"><svg xmlns="http://www.w3.org/2000/svg" class="icon notice-icon" viewBox="0 0 512 512" fill="hsl(140, 65%, 65%)"><path d="M504 256a248 248 0 11-496 0 248 248 0 01496 0zM227 387l184-184c7-6 7-16 0-22l-22-23c-7-6-17-6-23 0L216 308l-70-70c-6-6-16-6-23 0l-22 23c-7 6-7 16 0 22l104 104c6 7 16 7 22 0z"/></svg></div><p><strong>不乱码的两个条件：</strong></p>
+<ul>
+<li>保证编码和解码的字符集是相同的</li>
+<li>解码时对应的字节序列是完整的，没有缺少字节</li>
+</ul></div>
+
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Test</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">test0</span><span class="p">()</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">Exception</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;中国&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">str</span><span class="p">.</span><span class="na">getBytes</span><span class="p">(</span><span class="s">&#34;ISO8859-1&#34;</span><span class="p">).</span><span class="na">length</span><span class="p">);</span><span class="w"> </span><span class="c1">// 2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// ISO8859-1把所有的字符都当做一个byte处理，处理不了多个字节</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">str</span><span class="p">.</span><span class="na">getBytes</span><span class="p">(</span><span class="s">&#34;GBK&#34;</span><span class="p">).</span><span class="na">length</span><span class="p">);</span><span class="w"> </span><span class="c1">// 4 每一个中文都是对应2个字节</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">str</span><span class="p">.</span><span class="na">getBytes</span><span class="p">(</span><span class="s">&#34;UTF-8&#34;</span><span class="p">).</span><span class="na">length</span><span class="p">);</span><span class="w"> </span><span class="c1">// 6 常规的中文都是3个字节</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 不乱码：（1）保证编码与解码的字符集名称一样（2）不缺字节
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">String</span><span class="p">(</span><span class="n">str</span><span class="p">.</span><span class="na">getBytes</span><span class="p">(</span><span class="s">&#34;ISO8859-1&#34;</span><span class="p">),</span><span class="w"> </span><span class="s">&#34;ISO8859-1&#34;</span><span class="p">));</span><span class="w"> </span><span class="c1">// 乱码</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">String</span><span class="p">(</span><span class="n">str</span><span class="p">.</span><span class="na">getBytes</span><span class="p">(</span><span class="s">&#34;GBK&#34;</span><span class="p">),</span><span class="w"> </span><span class="s">&#34;GBK&#34;</span><span class="p">));</span><span class="w"> </span><span class="c1">// 中国</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">String</span><span class="p">(</span><span class="n">str</span><span class="p">.</span><span class="na">getBytes</span><span class="p">(</span><span class="s">&#34;UTF-8&#34;</span><span class="p">),</span><span class="w"> </span><span class="s">&#34;UTF-8&#34;</span><span class="p">));</span><span class="w"> </span><span class="c1">// 中国</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="常用方法">常用方法
+</h4><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>方法</th>
+          <th>描述</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>boolean isEmpty()</td>
+          <td>字符串是否为空字符串，不是判断是否为null</td>
+      </tr>
+      <tr>
+          <td>int length()</td>
+          <td>返回字符串的长度</td>
+      </tr>
+      <tr>
+          <td>String concat(String other)</td>
+          <td>拼接两个字符串，返回一个新的字符串，原来的字符串保持不变</td>
+      </tr>
+      <tr>
+          <td>boolean equals(Object obj)</td>
+          <td>比较字符串是否相等，区分大小写</td>
+      </tr>
+      <tr>
+          <td>boolean equalsIgnoreCase(Object obj)</td>
+          <td>比较字符串是否相等，不区分大小写</td>
+      </tr>
+      <tr>
+          <td>int compareTo(String other)</td>
+          <td>按照 Unicode 编码值比较字符串大小，区分大小写</td>
+      </tr>
+      <tr>
+          <td>int compareToIgnoreCase(String other)</td>
+          <td>按照 Unicode 编码值比较字符串大小，不区分大小写</td>
+      </tr>
+      <tr>
+          <td>String toLowerCase()</td>
+          <td>将字符串中大写字母转为小写</td>
+      </tr>
+      <tr>
+          <td>String toUpperCase()</td>
+          <td>将字符串中小写字母转为大写</td>
+      </tr>
+      <tr>
+          <td>String trim()</td>
+          <td>去掉字符串前后空白符</td>
+      </tr>
+      <tr>
+          <td>public String intern()</td>
+          <td>返回与当前字符串内容相同的，位于字符串常量池中的字符串的引用</td>
+      </tr>
+      <tr>
+          <td>boolean contains(String str)</td>
+          <td>判断字符串中是否包含 str</td>
+      </tr>
+      <tr>
+          <td>int indexOf(String str)</td>
+          <td><strong>从前往后</strong>找当前字符串中 str，如果有则返回 str 第一次出现的下标，没有返回则返回 -1</td>
+      </tr>
+      <tr>
+          <td>int indexOf(String str, int fromIndex)</td>
+          <td>从指定索引开始，<strong>从前往后</strong>找当前字符串中 str，如果有则返回 str 第一次出现的下标，没有返回则返回 -1</td>
+      </tr>
+      <tr>
+          <td>int lastIndexOf(String str)</td>
+          <td><strong>从后往前</strong>找当前字符串中 str，如果有则返回 str 第一次出现的下标，没有返回则返回 -1</td>
+      </tr>
+      <tr>
+          <td>int lastIndexOf(String str, int fromIndex)</td>
+          <td>从指定索引开始，<strong>从后往前</strong>找当前字符串中 str，如果有则返回 str 第一次出现的下标，没有返回则返回 -1</td>
+      </tr>
+      <tr>
+          <td>String substring(int beginIndex)</td>
+          <td>返回一个新的字符串，它是此字符串从 beginIndex 开始截取到最后的一个字符的子字符串</td>
+      </tr>
+      <tr>
+          <td>String substring(int beginIndex, int endIndex)</td>
+          <td>返回一个新的字符串，它是此字符串从 beginIndex 开始截取到 endIndex （不包含）的子字符串。</td>
+      </tr>
+      <tr>
+          <td>char charAt(index)</td>
+          <td>返回字符串 index 位置的字符</td>
+      </tr>
+      <tr>
+          <td>char[] toCharArray()</td>
+          <td>将字符串转换为一个新的字符数组返回</td>
+      </tr>
+      <tr>
+          <td>static String valueOf(char[] data)</td>
+          <td>返回一个新字符串，该字符串用整个 data 数组构建</td>
+      </tr>
+      <tr>
+          <td>static String valueOf(char[] data, int offset, int count)</td>
+          <td>返回一个新字符串，该字符串从 data 数组的 offset 索引开始，使用 count 个字符构建字符串</td>
+      </tr>
+      <tr>
+          <td>static String copyValueOf(char[] data)</td>
+          <td>返回一个新字符串，该字符串用整个 data 数组构建</td>
+      </tr>
+      <tr>
+          <td>static String copyValueOf(char[] data, int offset, int count)</td>
+          <td>返回一个新字符串，该字符串从 data 数组的 offset 索引开始，使用 count 个字符构建字符串</td>
+      </tr>
+      <tr>
+          <td>boolean startsWith(String str)</td>
+          <td>判断字符串是否以指定的前缀开始</td>
+      </tr>
+      <tr>
+          <td>boolean startsWith(String prefix, int toffset)</td>
+          <td>判断字符串从指定索引开始的子字符串是否以指定前缀开始</td>
+      </tr>
+      <tr>
+          <td>boolean endsWith(String str)</td>
+          <td>判断此字符串是否以指定的后缀结束</td>
+      </tr>
+      <tr>
+          <td>String replace(char oldChar, char newChar)</td>
+          <td>返回一个新的字符串，它是通过用 newChar 替换字符串中出现的所有 oldChar 得到的，不支持正则表达式</td>
+      </tr>
+      <tr>
+          <td>String replace(CharSequence target, CharSequence replacement)</td>
+          <td>使用指定的字面值序列替换字符串所有匹配字面值目标序列的子字符串</td>
+      </tr>
+      <tr>
+          <td>String replaceAll(String regex, String replacement)</td>
+          <td>使用给定的 replacement 替换此字符串<strong>所有</strong>匹配给定的正则表达式的子字符串</td>
+      </tr>
+      <tr>
+          <td>String replaceFirst(String regex, String replacement)</td>
+          <td>使用给定的 replacement 替换此字符串匹配给定的正则表达式的<strong>第一个</strong>子字符串</td>
+      </tr>
+  </tbody>
+</table></div>
+<h2 id="可变之字符序列-stringbufferstringbuilder">可变之字符序列 StringBuffer、StringBuilder
+</h2><p>因为 String 对象是不可变对象，虽然可以共享常量池对象，但是对于频繁的字符串的修改和拼接操作来说，String 的效率极低、空间消耗较高。因此，JDK 又在 java.lang 包提供了可变字符序列 <code>StringBuffer</code> 和 <code>StringBuilder</code> 类型。</p>
+<p>java.lang.StringBuffer 代表<code>可变的字符序列</code>，于JDK1.0中声明，可以对字符串内容进行<code>增删查改</code>操作<strong>但不会产生新的对象，而是在原来的字符串中进行操作</strong>。比如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 情况1:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">String</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">String</span><span class="p">(</span><span class="s">&#34;我喜欢学习&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 情况2:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">StringBuffer</span><span class="w"> </span><span class="n">buffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">StringBuffer</span><span class="p">(</span><span class="s">&#34;我喜欢学习&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">buffer</span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="s">&#34;除了数学&#34;</span><span class="p">);</span><span class="w"> 
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/css/swiper.min.css">
+    
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            
+            
+            <div class="swiper-slide">
+                <img src="https://s2.loli.net/2024/11/07/1HeNZnF9b8xMCBi.png" alt="">
+            </div>
+            
+            <div class="swiper-slide">
+                <img src="https://s2.loli.net/2024/11/07/hDU9RTQsAyCqkbX.png" alt="">
+            </div>
+            
+            <div class="swiper-slide">
+                <img src="https://s2.loli.net/2024/11/07/VvJwKmohN8XlkSE.png" alt="">
+            </div>
+            
+            <div class="swiper-slide">
+                <img src="https://s2.loli.net/2024/11/07/WStThxoBsVwbjqZ.png" alt="">
+            </div>
+            
+        </div>
+        
+        <div class="swiper-pagination"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/js/swiper.min.js"></script>
+     
+     <script>
+        var swiper = new Swiper('.swiper-container', {
+            pagination: '.swiper-pagination',
+            paginationClickable: true,
+        
+        autoHeight: true,
+        
+        keyboardControl : true,
+        
+        mousewheelControl : true,
+        
+        
+        
+        lazyLoading : true,
+		lazyLoadingInPrevNext : true,
+		
+		loop : true,
+        });
+        </script>
+
+<p>StringBuilder 和 StringBuffer 非常类似，均代表可变的字符序列，而且提供相关功能的方法也一样。</p>
+
+
+
+<div class="notice notice-note" >
+    <div class="notice-title"><svg xmlns="http://www.w3.org/2000/svg" class="icon notice-icon" viewBox="0 0 512 512" fill="hsl(200, 65%, 65%)"><path d="M504 256a248 248 0 11-496 0 248 248 0 01496 0zm-248 50a46 46 0 100 92 46 46 0 000-92zm-44-165l8 136c0 6 5 11 12 11h48c7 0 12-5 12-11l8-136c0-7-5-13-12-13h-64c-7 0-12 6-12 13z"/></svg></div><p><strong>区分String、StringBuffer、StringBuilder</strong></p>
+<ul>
+<li><code>String</code>：不可变的字符序列；底层使用 char[] 数组存储数据（JDK8.0中）</li>
+<li><code>StringBuffer</code>：可变的字符序列；线程安全（方法有 <code>synchronized</code> 修饰），效率较低；底层使用 char[] 数组存储数据（JDK8.0中）</li>
+<li><code>StringBuilder</code>：可变的字符序列； JDK1.5 引入，线程不安全，效率高；底层使用 char[] 数组存储数据（JDK8.0中）</li>
+</ul></div>
+
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// String、StringBuffer、StringBuilder 的效率测试</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Test</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">test</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 初始设置</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">final</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">CIRCLE_SIZE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">100_000</span><span class="p">;</span><span class="w"> </span><span class="c1">// 循环十万次</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="n">startTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">0L</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="n">endTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">0L</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">StringBuffer</span><span class="w"> </span><span class="n">buffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">StringBuffer</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">StringBuilder</span><span class="w"> </span><span class="n">builder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">StringBuilder</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 开始对比</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">startTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">currentTimeMillis</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">CIRCLE_SIZE</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">buffer</span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="n">i</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">endTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">currentTimeMillis</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;StringBuffer的执行时间：&#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">endTime</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">startTime</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&#34;ms&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">startTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">currentTimeMillis</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">CIRCLE_SIZE</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">builder</span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="n">i</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">endTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">currentTimeMillis</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;StringBuilder的执行时间：&#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">endTime</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">startTime</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&#34;ms&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">startTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">currentTimeMillis</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">CIRCLE_SIZE</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">text</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">endTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">currentTimeMillis</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;String的执行时间：&#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">endTime</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">startTime</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&#34;ms&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div></br>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 输出</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">StringBuffer的执行时间</span><span class="err">：</span><span class="n">13ms</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">StringBuilder的执行时间</span><span class="err">：</span><span class="n">5ms</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">String的执行时间</span><span class="err">：</span><span class="n">2917ms</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>就执行效率而言：</p>
+<p><strong><mark>StringBuilder &gt; StringBuffer &gt; String</mark></strong></p>
+<h3 id="常用-api">常用 API
+</h3><p>StringBuilder、StringBuffer 的 API 是<strong>完全一致</strong>的，并且很多方法与 String 相同。</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>API</th>
+          <th>描述</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>StringBuffer append(xxx)</td>
+          <td>提供了很多的 append() 方法，用于进行字符串追加的方式拼接</td>
+      </tr>
+      <tr>
+          <td>StringBuffer delete(int start, int end)</td>
+          <td>删除 [start,end) 之间字符</td>
+      </tr>
+      <tr>
+          <td>StringBuffer deleteCharAt(int index)</td>
+          <td>删除 [index] 位置字符</td>
+      </tr>
+      <tr>
+          <td>StringBuffer replace(int start, int end, String str)</td>
+          <td>替换 [start,end) 范围的字符序列为 str</td>
+      </tr>
+      <tr>
+          <td>void setCharAt(int index, char c)</td>
+          <td>替换 [index] 位置字符为 c</td>
+      </tr>
+      <tr>
+          <td>char charAt(int index)</td>
+          <td>返回 [index] 位置上的字符</td>
+      </tr>
+      <tr>
+          <td>StringBuffer insert(int index, xx)</td>
+          <td>在 [index] 位置插入 xx</td>
+      </tr>
+      <tr>
+          <td>int length()</td>
+          <td>返回存储的字符数据的长度</td>
+      </tr>
+      <tr>
+          <td>StringBuffer reverse()</td>
+          <td>反转字符序列</td>
+      </tr>
+      <tr>
+          <td>int indexOf(String str)</td>
+          <td>在当前字符序列中查询 str 的第一次出现下标</td>
+      </tr>
+      <tr>
+          <td>int indexOf(String str, int fromIndex)</td>
+          <td>在当前字符序列 [fromIndex, 最后] 中查询 str 的第一次出现下标</td>
+      </tr>
+      <tr>
+          <td>int lastIndexOf(String str)</td>
+          <td>在当前字符序列中查询 str 的最后一次出现下标</td>
+      </tr>
+      <tr>
+          <td>int lastIndexOf(String str, int fromIndex)</td>
+          <td>在当前字符序列 [fromIndex, 最后] 中查询 str 的最后一次出现下标</td>
+      </tr>
+      <tr>
+          <td>String substring(int start)</td>
+          <td>截取当前字符序列 [start,最后]</td>
+      </tr>
+      <tr>
+          <td>String substring(int start, int end)</td>
+          <td>截取当前字符序列 [start,end)</td>
+      </tr>
+      <tr>
+          <td>String toString()</td>
+          <td>返回此序列中数据的字符串表示形式</td>
+      </tr>
+      <tr>
+          <td>void setLength(int newLength)</td>
+          <td>设置当前字符序列长度为 newLength</td>
+      </tr>
+  </tbody>
+</table></div>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/javase/">JavaSE</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/1029-%E5%88%9D%E8%AF%86%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+        
+        
+            <div class="article-image">
+                <img src="/p/1029-%E5%88%9D%E8%AF%86%E5%A4%9A%E7%BA%BF%E7%A8%8B/cover.3f8b06208a552a6b9ee2e33241885529_hu15069242591158582689.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 初识多线程"
+                        data-key="1029 初识多线程" 
+                        data-hash="md5-P4sGIIpVKmue4uMyQYhVKQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">初识多线程</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/1020-%E6%9E%9A%E4%B8%BE%E7%B1%BB/">
+        
+        
+            <div class="article-image">
+                <img src="/p/1020-%E6%9E%9A%E4%B8%BE%E7%B1%BB/cover.57245352ce776c70f5075d65fe4da7a1_hu5968683431117145244.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 枚举类"
+                        data-key="1020 枚举类" 
+                        data-hash="md5-VyRTUs53bHD1B11l/k2noQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">枚举类</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/1018-%E5%8C%85%E8%A3%85%E7%B1%BB/">
+        
+        
+            <div class="article-image">
+                <img src="/p/1018-%E5%8C%85%E8%A3%85%E7%B1%BB/cover.2dc11305c736a7c43869f43248b7572d_hu12486477826240816550.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 包装类"
+                        data-key="1018 包装类" 
+                        data-hash="md5-LcETBcc2p8Q4afQySLdXLQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">包装类</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/1018-%E5%9C%A8idea%E4%B8%AD%E4%BD%BF%E7%94%A8junit/">
+        
+        
+            <div class="article-image">
+                <img src="/p/1018-%E5%9C%A8idea%E4%B8%AD%E4%BD%BF%E7%94%A8junit/cover.005480ea9930c0151d255fc119b4da6a_hu14679134354371483945.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 在IDEA中使用JUnit"
+                        data-key="1018 在IDEA中使用JUnit" 
+                        data-hash="md5-AFSA6pkwwBUdJV/BGbTaag==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">在IDEA中使用JUnit</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/1016-%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E6%9E%9A%E4%B8%BE%E5%92%8C%E6%B3%A8%E8%A7%A3/">
+        
+        
+            <div class="article-image">
+                <img src="/p/1016-%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E6%9E%9A%E4%B8%BE%E5%92%8C%E6%B3%A8%E8%A7%A3/cover.8663fd7f55753c0be945b2375fe4b3bf_hu17809481235312876967.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 简单介绍枚举和注解"
+                        data-key="1016 简单介绍枚举和注解" 
+                        data-hash="md5-hmP9f1V1PAvpRbI3X&#43;Szvw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">简单介绍枚举和注解</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+
+
+    
+        
+        
+        
+        
+        
+    
+    
+        
+    
+
+
+
+
+
+
+
+    
+
+    
+        
+        
+
+        
+    
+
+    
+        
+        
+
+        
+    
+
+    
+        
+        
+
+        
+    
+
+    
+        
+        
+
+        
+    
+
+    
+        
+        
+
+        
+    
+
+    
+        
+        
+
+        
+    
+
+    
+        
+        
+
+        
+    
+
+    
+        
+        
+
+        
+    
+
+    
+
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css"/>
+<div id="waline" class="waline-container"></div>
+<style>
+    .waline-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+        --waline-font-size: var(--article-font-size);
+    }
+    .waline-container .wl-count {
+        color: var(--card-text-color-main);
+    }
+
+    :root{
+   	       --waline-border-color:transparent;
+   	}      
+
+</style><script type="module">
+    import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
+    init({"comment":true,"dark":"html[data-scheme=\"dark\"]","el":"#waline","emoji":["https://npm.elemecdn.com/@waline/emojis@1.2.0/tieba","https://npm.elemecdn.com/@waline/emojis@1.1.0/bilibili","https://npm.elemecdn.com/@waline/emojis@1.1.0/bmoji","https://npm.elemecdn.com/@waline/emojis@1.2.0/qq"],"lang":"zh-CN","locale":{"admin":"小鸟小姐","placeholder":"欢迎留下宝贵的评论！请留下正确的邮箱以便有回复时进行邮箱提醒，请勿发布任何与本文章无关的内容。","reaction0":"非常有用","reaction1":"有帮助","reaction2":"一般","reaction3":"无帮助","reaction4":"看不懂","reaction5":"有错误","reactionTitle":"这篇文章对你有帮助吗？","sofa":"🍀~森林雅座一位️~🍀"},"pageview":true,"reaction":["https://npm.elemecdn.com/@waline/emojis@1.2.0/tieba/tieba_agree.png","https://npm.elemecdn.com/@waline/emojis@1.2.0/tieba/tieba_yum.png","https://npm.elemecdn.com/@waline/emojis@1.2.0/tieba/tieba_cute.png","https://npm.elemecdn.com/@waline/emojis@1.2.0/tieba/tieba_awkward.png","https://npm.elemecdn.com/@waline/emojis@1.2.0/tieba/tieba_doubt.png","https://npm.elemecdn.com/@waline/emojis@1.2.0/tieba/tieba_rage.png"],"requiredMeta":["nick"],"serverURL":"https://commentforest.us.kg"});
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy;
+        
+        2024 Kotori🕊️
+    </section>
+
+    
+    <section class="running-time">
+        鹅掌草の森已经茁壮生长了
+        <span id="runningdays" class="running-days"></span>
+    </section>
+
+    
+    <section class="totalcount">
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        发表了8篇文章 ·
+        总计50.10k字 ·
+        共 <span class="waline-pageview-count" data-path="/">0</span> 次浏览
+    </section>
+
+    <section class="powerby">
+        
+        记录任何我想记录的事情。若无特殊说明，则本博客文章均为原创，复制转载请保留出处。 <br />
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener"
+                data-version="3.27.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+
+    
+    
+
+    <script type="module">
+        import { pageviewCount } from 'https://unpkg.com/@waline/client@v3/dist/pageview.js';
+      
+        pageviewCount({
+          serverURL: "https:\/\/commentforest.us.kg"
+        });
+    </script>
+
+
+
+    
+    <script src="/js/firework.js"></script>
+
+</footer>
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Long+Cang&family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@300&family=Noto+Serif+SC:wght@300&family=Zhi+Mang+Xing&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/gh/zhixuan2333/gh-blog@v0.1.0/js/nprogress.min.js" integrity="sha384-bHDlAEUFxsRI7JfULv3DTpL2IXbbgn4JHQJibgo5iiXSK6Iu8muwqHANhun74Cqg" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/zhixuan2333/gh-blog@v0.1.0/css/nprogress.css" integrity="sha384-KJyhr2syt5+4M9Pz5dipCvTrtvOmLk/olWVdfhAp858UCa64Ia5GFpTN7+G4BWpE" crossorigin="anonymous" />
+<script>
+    NProgress.start();
+    document.addEventListener("readystatechange", () => {
+        if (document.readyState === "interactive") NProgress.inc(0.8);
+        if (document.readyState === "complete") NProgress.done();
+    });
+</script>
+
+
+<script>
+    let s1 = '2024-10-3'; 
+    s1 = new Date(s1.replace(/-/g, "/"));
+    let s2 = new Date();
+    let timeDifference = s2.getTime() - s1.getTime();
+
+    let days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+    let hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    let minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+
+    let result = days + "天" + hours + "小时" + minutes + "分钟";
+    document.getElementById('runningdays').innerHTML = result;
+</script>
+
+<script>
+    (function(){var w=window;if(w.ChannelIO){return w.console.error("ChannelIO script included twice.");}var ch=function(){ch.c(arguments);};ch.q=[];ch.c=function(args){ch.q.push(args);};w.ChannelIO=ch;function l(){if(w.ChannelIOInitialized){return;}w.ChannelIOInitialized=true;var s=document.createElement("script");s.type="text/javascript";s.async=true;s.src="https://cdn.channel.io/plugin/ch-plugin-web.js";var x=document.getElementsByTagName("script")[0];if(x.parentNode){x.parentNode.insertBefore(s,x);}}if(document.readyState==="complete"){l();}else{w.addEventListener("DOMContentLoaded",l);w.addEventListener("load",l);}})();
+  
+    ChannelIO('boot', {
+      "pluginKey": "7d1c9f75-50a1-4bcc-afed-65600454d5a6"
+    });
+  </script>
+
+<a href="#" id="back-to-top" title="返回顶部"></a>
+
+
+<style>
+    #back-to-top {
+        display: none;
+        position: fixed;
+        bottom: 90px;  
+        right: 10px;
+        width: 55px;
+        height: 55px;
+        border-radius: 7px;
+        background-color: rgba(211, 238, 152, 0.5);
+        box-shadow: var(--shadow-l2);
+        font-size: 30px;
+        text-align: center;
+        line-height: 50px;
+        cursor: pointer;
+    }
+
+
+    #back-to-top:before {
+        content: ' ';
+        display: inline-block;
+        position: relative;
+        top: 0;
+        transform: rotate(135deg);
+        height: 10px;
+        width: 10px;
+        border-width: 0 0 2px 2px;
+        border-color: var(--back-to-top-color);
+        border-style: solid;
+    }
+
+    #back-to-top:hover:before {
+        border-color: #D3EE98;
+    }
+
+     
+    @media screen and (max-width: 768px) {
+        #back-to-top {
+            bottom: 75px;
+            right: 19px;
+            width: 40px;
+            height: 40px;
+            font-size: 10px;
+        }
+    }
+
+     
+    @media screen and (min-width: 1024px) {
+        #back-to-top {
+            bottom: 100px;
+            right: 31px;
+        }
+    }
+
+     
+    @media screen and (min-width: 1280px) {
+        #back-to-top {
+            bottom: 100px;
+            right: 33px;
+        }
+    }
+
+     
+    @media screen and (min-width: 1536px) {
+        #back-to-top {
+            visibility: visible;
+        }
+    }
+</style>
+
+
+<script>
+    function backToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth' 
+        });
+    }
+
+    window.onload = function () {
+        let scrollTop =
+            document.documentElement.scrollTop || document.body.scrollTop;
+        let totopBtn = document.getElementById('back-to-top');
+        if (scrollTop > 0) {
+            totopBtn.style.display = 'inline';
+        } else {
+            totopBtn.style.display = 'none';
+        }
+    }
+
+    window.onscroll = function () {
+        let scrollTop =
+            document.documentElement.scrollTop || document.body.scrollTop;
+        let totopBtn = document.getElementById('back-to-top');
+        if (scrollTop < 200) {
+            totopBtn.style.display = 'none';
+        } else {
+            totopBtn.style.display = 'inline';
+            totopBtn.addEventListener('click', backToTop, false);
+        }
+    }
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<div id="aplayer"></div>
+
+
+
+<script>
+    
+    const ap = new APlayer({
+        container: document.getElementById('aplayer'),
+        fixed: true,
+        listMaxHeight: '150px',
+        autoplay: false, 
+        
+        audio: [{
+            name: 'ニリンソウ',
+            artist: '細井聡司',
+            url: 'http://music.163.com/song/media/outer/url?id=26131699.mp3',
+            cover: 'http://p2.music.126.net/QeFAqq2BCI1-wVuJmkIf1Q==/109951169594773103.jpg',
+            
+        },
+        {
+            name: '一号线',
+            artist: 'sentive',
+            url: 'http://music.163.com/song/media/outer/url?id=4979707.mp3',
+            cover: 'http://p2.music.126.net/7gMxExa7fandCI8bTa923w==/6038517860027044.jpg',
+            
+        },
+        {
+            name: 'ぼくらの性',
+            artist: 'waniwave',
+            url: 'http://music.163.com/song/media/outer/url?id=1316376017.mp3',
+            cover: 'http://p1.music.126.net/G9lpFn-H6RVxXBq08yR1jw==/109951163599186837.jpg',
+        },
+        {
+            name: 'Will&Wish',
+            artist: 'VISUAL ARTS / Key',
+            url: 'http://music.163.com/song/media/outer/url?id=760261.mp3',
+            cover: 'http://p1.music.126.net/kNmpnQ7drDI907MK5UqIGg==/109951169976604747.jpg',
+        },
+        {
+            name: 'スカーレット',
+            artist: '上松範康',
+            url: 'http://music.163.com/song/media/outer/url?id=4966665.mp3',
+            cover: 'http://p1.music.126.net/Ao2d9Ra6ozw744eXDfJTWw==/6037418348408516.jpg',
+        },
+        {
+            name: 'Sentence know',
+            artist: '金閉開羅巧夢',
+            url: 'http://music.163.com/song/media/outer/url?id=1297493055.mp3',
+            cover: 'http://p1.music.126.net/Y0QweHGIS5RygOrDDkBA8Q==/109951163433040387.jpg',
+        },
+        {
+            name: '秋空',
+            artist: '立花泰彦',
+            url: 'http://music.163.com/song/media/outer/url?id=4942739.mp3',
+            cover: 'http://p1.music.126.net/GdfyiyCwC_tRqrt5_5drvQ==/109951169908597426.jpg',
+        },
+        {
+            name: '花咲くとき',
+            artist: '母里治樹',
+            url: 'http://music.163.com/song/media/outer/url?id=4928392.mp3',
+            cover: 'http://p2.music.126.net/ZXlNy_T38wBh2Og07PK82Q==/6636652186131628.jpg',
+        },
+        {
+            name: '爱之梦',
+            artist: 'Franz Liszt',
+            url: 'http://music.163.com/song/media/outer/url?id=5276814.mp3',
+            cover: 'http://p2.music.126.net/UTrFxVAoq-Qh50dB_M74dw==/51677046522530.jpg',
+        },
+        {
+            name: '夏の大三角',
+            artist: 'ryo (supercell)',
+            url: 'http://music.163.com/song/media/outer/url?id=4937375.mp3',
+            cover: 'http://p2.music.126.net/3rtl6iK4Cue6mhE02ZNj2A==/109951166171557761.jpg',
+        },
+        {
+            name: 'SABBATH',
+            artist: '川越好博',
+            url: 'http://music.163.com/song/media/outer/url?id=872591.mp3',
+            cover: 'http://p2.music.126.net/HE4s2pCDfHqOteYGJEZbXQ==/4459619162262116.jpg',
+        },
+        {
+            name: '冬の欠片',
+            artist: 'MANYO',
+            url: 'http://music.163.com/song/media/outer/url?id=1817109134.mp3',
+            cover: 'http://p1.music.126.net/bU_UznrJaqyaSbaaQFZCKw==/109951165687192876.jpg',
+        },
+        {
+            name: "Sylvia's theme",
+            artist: "水月陵",
+            url: "http://music.163.com/song/media/outer/url?id=551339061.mp3",
+            cover: "http://p1.music.126.net/ViKKxwreVuX1_VGzUmVxfQ==/109951163237784083.jpg",
+        },
+        {
+            name: "悲愴",
+            artist: "Metomate",
+            url: "http://music.163.com/song/media/outer/url?id=1332469835.mp3",
+            cover: "http://p1.music.126.net/iJ6KYlqeLarOukzIIOvlHw==/109951163832691350.jpg",
+        },
+        {
+            name: "Radiance",
+            artist: "細井聡司",
+            url: "http://music.163.com/song/media/outer/url?id=26131692.mp3",
+            cover: "http://p1.music.126.net/QeFAqq2BCI1-wVuJmkIf1Q==/109951169594773103.jpg",
+        },
+        {
+            name: "リベラリタス島嶼群/夜",
+            artist: "工藤ともり/山中裕代",
+            url: "http://music.163.com/song/media/outer/url?id=565975070.mp3",
+            cover: "http://p1.music.126.net/Y8uzZx4RMSHuyKIUVXm6Lg==/109951163312431204.jpg",
+        },
+        {
+            name: "ミニBGM集 「夢色キャンバス」",
+            artist: "藤田淳平",
+            url: "http://music.163.com/song/media/outer/url?id=34045492.mp3",
+            cover: "http://p1.music.126.net/85kjpdXNZvFjuTrc1-hLPw==/7699879931616084.jpg",
+        },
+        {
+            name: "リベラリタス島嶼群",
+            artist: "工藤ともり/山中裕代",
+            url: "http://music.163.com/song/media/outer/url?id=565841120.mp3",
+            cover: "http://p1.music.126.net/Y8uzZx4RMSHuyKIUVXm6Lg==/109951163312431204.jpg",
+        },
+        {
+            name: "縁",
+            artist: "折戸伸治",
+            url: "http://music.163.com/song/media/outer/url?id=28151043.mp3",
+            cover: "http://p2.music.126.net/0I_RK7PsmyjbdPVmQ96SjQ==/109951169869394319.jpg",
+        },
+        {
+            name: "夏の子守歌",
+            artist: "VISUAL ARTS / Key",
+            url: "http://music.163.com/song/media/outer/url?id=1311319919.mp3",
+            cover: "http://p1.music.126.net/MVWKZCUCNQocuhMRBpL-Qw==/109951169976613728.jpg",
+        },
+        {
+            name: "OST-06",
+            artist: "Neko17",
+            url: "http://music.163.com/song/media/outer/url?id=1831543991.mp3",
+            cover: "http://p2.music.126.net/roD41gwWHTaHeAbOyTjFFQ==/109951165826019058.jpg",
+        },
+    ]
+    });
+</script>
+
+
+<script>
+    
+
+    window.onbeforeunload = () => {
+        
+        const playInfo = {
+            index: ap.list.index,
+            currentTime: ap.audio.currentTime,
+            paused: ap.paused
+        };
+        localStorage.setItem("playInfo", JSON.stringify(playInfo));
+    };
+
+    
+
+    window.onload = () => {
+        
+        const playInfo = JSON.parse(localStorage.getItem("playInfo"));
+        if (!playInfo) {
+            return;
+        }
+        
+        ap.list.switch(playInfo.index);
+        
+        setTimeout(() => {
+            
+            ap.seek(playInfo.currentTime);
+            
+            if (!playInfo.paused) {
+                ap.play()
+            }
+        }, 500);
+    };
+</script>
+
+    </body>
+</html>
